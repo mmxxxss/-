@@ -2,7 +2,9 @@
   <div class="container">
     <h1 class="title">您好，</h1>
     <p class="desc">
-      欢迎来到租房平台，立即<span class="register" @click="register">注册</span>
+      欢迎来到租房平台，立即<span class="register" @click="goRegister"
+        >注册</span
+      >
     </p>
     <p class="desc change">请先选择您的身份吧！</p>
     <nut-radio-group v-model="role" direction="horizontal">
@@ -11,16 +13,16 @@
       <nut-radio label="3">我是管理员</nut-radio>
     </nut-radio-group>
     <div class="user">
-      <span v-if="userName" class="desc">账号</span>
+      <span v-if="form.username" class="desc">账号</span>
       <nut-input
-        v-model="userName"
+        v-model="form.username"
         placeholder="请输入账号"
         class="input"
         type="text"
       />
-      <span v-if="password" class="desc">密码</span>
+      <span v-if="form.password" class="desc">密码</span>
       <nut-input
-        v-model="password"
+        v-model="form.password"
         placeholder="请输入密码"
         class="input"
         type="password"
@@ -29,7 +31,8 @@
     <nut-button
       type="primary"
       class="btn"
-      :disabled="!userName || !password || !role"
+      :disabled="!form.username || !form.password || !role"
+      @click="login"
       >登录</nut-button
     >
   </div>
@@ -37,10 +40,23 @@
 <script setup>
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
-const userName = ref("");
-const password = ref("");
+import { goZuKeLogin } from "../../api/zuke";
+import { goFangDongLogin, goUserLogin } from "../../api/fangdong";
+const form = ref({
+  username: "",
+  password: "",
+});
 const role = ref("1");
-const register = () => {
+const login = async () => {
+  if (role.value == 1) {
+    const res = await goZuKeLogin(form.value);
+  } else if (role.value == 2) {
+    const res = await goFangDongLogin(form.value);
+  } else {
+    const res = await goUserLogin(form.value);
+  }
+};
+const goRegister = () => {
   Taro.navigateTo({
     url: "/pages/register/index",
   });
