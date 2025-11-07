@@ -41,7 +41,8 @@
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
 import { goZuKeLogin } from "../../api/zuke";
-import { goFangDongLogin, goUserLogin } from "../../api/fangdong";
+import { goFangDongLogin } from "../../api/fangdong";
+import { goUserLogin } from "../../api/user";
 const form = ref({
   username: "",
   password: "",
@@ -50,10 +51,13 @@ const role = ref("1");
 const login = async () => {
   if (role.value == 1) {
     const res = await goZuKeLogin(form.value);
+    Taro.setStorageSync("token", res.data.token);
   } else if (role.value == 2) {
     const res = await goFangDongLogin(form.value);
+    Taro.setStorageSync("token", res.data.token);
   } else {
     const res = await goUserLogin(form.value);
+    Taro.setStorageSync("token", res.data.token);
   }
 };
 const goRegister = () => {

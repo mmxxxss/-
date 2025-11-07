@@ -1,24 +1,10 @@
-import Taro from "@tarojs/taro";
-const service = (path, params = {}, method = "get") => {
-    const token = Taro.getStorageSync('frontToken')
-    return new Promise((resolve, reject) => {
-        Taro.request({
-            url: "http://localhost:8080/zufangguanli" + path,
-            data: params,
-            method,
-            header: `Token:${token}`,
-            success(res) {
-                resolve(res.data);
-            },
-            fail(err) {
-                reject(err);
-            },
-        });
-    })
-}
+// 房东api
+import service from "../utils/service";
+// 登录
 export const goFangDongLogin = (data) => {
     return service(`/fangdong/login?username=${data.username}&password=${data.password}`)
 }
-export const goUserLogin = (data) => {
-    return service(`/user/login?username=${data.username}&password=${data.password}`)
+// 注册
+export const goFangDongRegister = (data) => {
+    return service(`/fangdong/register`, data, "post")
 }
