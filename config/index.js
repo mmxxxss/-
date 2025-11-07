@@ -11,7 +11,7 @@ export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig = {
     projectName: 'zufangguanli',
     date: '2025-10-28',
-    designWidth (input) {
+    designWidth(input) {
       // 配置 NutUI 375 尺寸
       if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
         return 375
@@ -63,9 +63,9 @@ export default defineConfig(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
-        
+
         chain.plugin('unplugin-vue-components').use(Components({
-          resolvers: [NutUIResolver({taro: true})]
+          resolvers: [NutUIResolver({ taro: true })]
         }))
       }
     },
@@ -95,9 +95,9 @@ export default defineConfig(async (merge, { command, mode }) => {
         }
       },
       webpackChain(chain) {
-        
+
         chain.plugin('unplugin-vue-components').use(Components({
-          resolvers: [NutUIResolver({taro: true})]
+          resolvers: [NutUIResolver({ taro: true })]
         }))
       }
     },
