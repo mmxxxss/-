@@ -1,8 +1,16 @@
 <template>
-  <div class="container" :style="{ paddingTop: statusBarHeight + 'px' }">
+  <div
+    class="container"
+    :style="{ paddingTop: statusBarHeight + topHeight + 'px' }"
+  >
     <div
       class="title"
-      :style="{ height: topHeight + 'px', lineHeight: topHeight + 'px' }"
+      :style="{
+        height: topHeight + 'px',
+        lineHeight: topHeight + 'px',
+        paddingTop: statusBarHeight + 'px',
+        top: 0,
+      }"
     >
       大学生租客平台
     </div>
@@ -155,6 +163,10 @@ onMounted(async () => {
   font-size: 32px;
   font-weight: 400;
   text-align: center;
+  position: fixed;
+  background: white;
+  left: 0;
+  z-index: 999;
 }
 .swiper-img {
   height: 100%;
