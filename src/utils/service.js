@@ -18,22 +18,22 @@ const service = (path, params = {}, method = "get") => {
                     Taro.showToast({
                         title: response.data.msg,
                         icon: 'none',
-                        duration: 2000
+                        duration: 1000
                     })
                     setTimeout(() => {
                         Taro.reLaunch({
                             url: '/pages/login/index',
                         })
-                    }, 2000);
+                    }, 1000);
                     reject(response)
                 }
                 else if (response.data && response.data.code == 0) {
-                    resolve(response)
+                    resolve(response.data)
                 } else {
                     Taro.showToast({
                         title: response.data.msg,
                         icon: 'none',
-                        duration: 2000
+                        duration: 1000
                     })
                     reject(response)
                 }

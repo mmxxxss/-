@@ -1,5 +1,6 @@
 // 租客api
 import service from "../utils/service";
+import Taro from "@tarojs/taro";
 // 登录
 export const goZuKeLogin = (data) => {
     return service(`/zuke/login?username=${data.username}&password=${data.password}`, {}, "post")
@@ -14,5 +15,6 @@ export const getSwiperList = () => {
 }
 // 获取房源信息推荐
 export const getHouseList = (data) => {
-    return service(`/fangyuanxinxi/autoSort2`, data, "get")
+    const token = Taro.getStorageSync('token')
+    return service(`/fangyuanxinxi/autoSort${token ? 2 : ''}`, data, "get")
 }

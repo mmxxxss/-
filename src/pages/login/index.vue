@@ -75,10 +75,13 @@ const login = async () => {
     Taro.showToast({
       title: "登录成功",
       icon: "none",
+      duration: 1000,
     });
-    Taro.reLaunch({
-      url: "/pages/" + role.value + "/index",
-    });
+    setTimeout(() => {
+      Taro.reLaunch({
+        url: "/pages/" + role.value + "/index",
+      });
+    }, 1000);
   } else {
     Taro.showToast({
       title: res.msg,
