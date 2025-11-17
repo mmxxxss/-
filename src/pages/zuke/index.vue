@@ -83,12 +83,33 @@
         </div>
       </div>
     </div>
+    <div class="common">
+      <div class="c-top">
+        <span class="c-t-title">通知公告</span>
+        <span class="c-t-more">查看更多+</span>
+      </div>
+      <div class="t-content">
+        <div class="t-c-item" v-for="(item, index) in noticeList" :key="index">
+          <div class="t-c-i-tile">{{ item.title }}</div>
+          <div class="t-c-i-desc">{{ item.introduction }}</div>
+          <div class="t-c-i-date">
+            {{ dayjs(item.addTime).format("YYYY-MM-DD") }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getSwiperList, getHouseList, getDevelopList } from "../../api/zuke";
+import {
+  getSwiperList,
+  getHouseList,
+  getDevelopList,
+  getNoticeList,
+} from "../../api/zuke";
+import dayjs from "dayjs";
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
 const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
 const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
@@ -99,6 +120,7 @@ const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const swiperList = ref([]);
 const houseList = ref([]);
 const developList = ref({});
+const noticeList = ref([]);
 onMounted(async () => {
   const res = await getSwiperList();
   if (res.code == 0) {
@@ -115,6 +137,15 @@ onMounted(async () => {
   const res3 = await getDevelopList();
   if (res3.code == 0) {
     developList.value = res3.data;
+  }
+  const res4 = await getNoticeList({
+    page: 1,
+    limit: 3,
+    sort: "id",
+    order: "desc",
+  });
+  if (res4.code == 0) {
+    noticeList.value = res4.data.list;
   }
 });
 </script>
@@ -209,6 +240,35 @@ onMounted(async () => {
       margin-left: 20px;
       font-size: 24px;
       font-weight: 400;
+    }
+  }
+  .t-content {
+    .t-c-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      padding: 20px;
+      background-color: rgb(177, 58, 61);
+      .t-c-i-tile {
+        font-size: 30px;
+        font-weight: 400;
+        color: white;
+      }
+      .t-c-i-desc {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        font-size: 24px;
+        font-weight: 300;
+        color: #fff;
+      }
+      .t-c-i-date {
+        font-size: 24px;
+        font-weight: 400;
+        color: white;
+        align-self: flex-end;
+      }
     }
   }
 }

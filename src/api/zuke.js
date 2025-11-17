@@ -22,3 +22,7 @@ export const getHouseList = (data) => {
 export const getDevelopList = (data) => {
     return service(`/aboutus/detail/1`, data, "get")
 }
+// 获取通知公告
+export const getNoticeList = (data) => {
+    return service(`/news/list`, data, "get")
+}
