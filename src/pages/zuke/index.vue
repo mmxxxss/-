@@ -60,7 +60,6 @@
             class="h-c-i-img"
             draggable="false"
           />
-          <div class="h-c-i-text">名称：{{ item.fangwumingcheng }}</div>
           <div class="h-c-i-text">地址：{{ item.fangwudizhi }}</div>
           <div class="h-c-i-text">价格：{{ item.zulinjiage }}元/月</div>
           <div class="h-c-i-text">电话：{{ item.shoujihao }}</div>
@@ -186,7 +185,7 @@ onMounted(async () => {
       padding: 10px;
       box-sizing: border-box;
       .h-c-i-img {
-        width: 300px;
+        width: 260px;
         height: 300px;
         border-radius: 10px;
         margin-bottom: 10px;
