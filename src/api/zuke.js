@@ -18,3 +18,7 @@ export const getHouseList = (data) => {
     const token = Taro.getStorageSync('token')
     return service(`/fangyuanxinxi/autoSort${token ? 2 : ''}`, data, "get")
 }
+// 获取发展历程
+export const getDevelopList = (data) => {
+    return service(`/aboutus/detail/1`, data, "get")
+}

@@ -44,10 +44,10 @@
         <span>留言板</span>
       </div>
     </div>
-    <div class="homeMessage">
-      <div class="h-top">
-        <span class="h-t-title">房源信息推荐</span>
-        <span class="h-t-more">查看更多+</span>
+    <div class="common">
+      <div class="c-top">
+        <span class="c-t-title">房源信息推荐</span>
+        <span class="c-t-more">查看更多+</span>
       </div>
       <div class="h-content">
         <div v-for="(item, index) in houseList" :key="index" class="h-c-item">
@@ -60,10 +60,27 @@
             class="h-c-i-img"
             draggable="false"
           />
-          <div class="h-c-i-name">名称：{{ item.fangwumingcheng }}</div>
-          <div class="h-c-i-address">地址：{{ item.fangwudizhi }}</div>
-          <div class="h-c-i-price">价格：{{ item.zulinjiage }}元/月</div>
-          <div class="h-c-i-phone">电话：{{ item.shoujihao }}</div>
+          <div class="h-c-i-text">名称：{{ item.fangwumingcheng }}</div>
+          <div class="h-c-i-text">地址：{{ item.fangwudizhi }}</div>
+          <div class="h-c-i-text">价格：{{ item.zulinjiage }}元/月</div>
+          <div class="h-c-i-text">电话：{{ item.shoujihao }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="common">
+      <div class="c-top">
+        <span class="c-t-title">发展历程</span>
+        <span class="c-t-more">查看更多+</span>
+      </div>
+      <div class="f-content">
+        <img
+          :src="'http://localhost:8080/zufangguanli/' + developList.picture1"
+          alt=""
+          class="f-c-img"
+          draggable="false"
+        />
+        <div class="f-c-text">
+          {{ developList.content }}
         </div>
       </div>
     </div>
@@ -72,10 +89,17 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getSwiperList, getHouseList } from "../../api/zuke";
-
+import { getSwiperList, getHouseList, getDevelopList } from "../../api/zuke";
+const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
+const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
+const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
+// 状态栏到胶囊的间距
+const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
+const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
+const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const swiperList = ref([]);
 const houseList = ref([]);
+const developList = ref({});
 onMounted(async () => {
   const res = await getSwiperList();
   if (res.code == 0) {
@@ -89,14 +113,11 @@ onMounted(async () => {
   if (res2.code == 0) {
     houseList.value = res2.data.list;
   }
+  const res3 = await getDevelopList();
+  if (res3.code == 0) {
+    developList.value = res3.data;
+  }
 });
-const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
-const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
-const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
-// 状态栏到胶囊的间距
-const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
-const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
-const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 </script>
 <style lang="scss">
 .title {
@@ -137,17 +158,18 @@ const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
     }
   }
 }
-.homeMessage {
+.common {
   margin-top: 20px;
   padding: 0 30px;
-  .h-top {
+  .c-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 24px;
     font-weight: 400;
     text-align: center;
-    .h-t-title {
+    margin-bottom: 10px;
+    .c-t-title {
       font-size: 36px;
     }
   }
@@ -156,7 +178,7 @@ const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
     display: flex;
     overflow: auto;
     .h-c-item {
-      margin: 10px;
+      margin: 0px 10px 10px 10px;
       display: flex;
       flex-direction: column;
       background-color: #f5f5f5;
@@ -164,11 +186,30 @@ const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
       padding: 10px;
       box-sizing: border-box;
       .h-c-i-img {
-        width: 320px;
+        width: 300px;
         height: 300px;
         border-radius: 10px;
         margin-bottom: 10px;
       }
+      .h-c-i-text {
+        font-size: 24px;
+        font-weight: 400;
+      }
+    }
+  }
+  .f-content {
+    width: 100%;
+    display: flex;
+    .f-c-img {
+      flex-shrink: 0;
+      width: 300px;
+      height: 230px;
+      border-radius: 10px;
+    }
+    .f-c-text {
+      margin-left: 20px;
+      font-size: 24px;
+      font-weight: 400;
     }
   }
 }
