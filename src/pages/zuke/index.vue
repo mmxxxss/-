@@ -1,7 +1,10 @@
 <template>
   <div
     class="container"
-    :style="{ paddingTop: statusBarHeight + topHeight + 'px' }"
+    :style="{
+      paddingTop: statusBarHeight + topHeight + 'px',
+      paddingBottom: '20px',
+    }"
   >
     <div
       class="title"
@@ -76,6 +79,21 @@
     </div>
     <div class="common">
       <div class="c-top">
+        <span class="c-t-title">通知公告</span>
+        <span class="c-t-more">查看更多+</span>
+      </div>
+      <div class="t-content">
+        <div class="t-c-item" v-for="(item, index) in noticeList" :key="index">
+          <div class="t-c-i-tile">{{ item.title }}</div>
+          <div class="t-c-i-desc">{{ item.introduction }}</div>
+          <div class="t-c-i-date">
+            {{ dayjs(item.addTime).format("YYYY-MM-DD") }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="common">
+      <div class="c-top">
         <span class="c-t-title">发展历程</span>
         <span class="c-t-more">查看更多+</span>
       </div>
@@ -93,16 +111,18 @@
     </div>
     <div class="common">
       <div class="c-top">
-        <span class="c-t-title">通知公告</span>
+        <span class="c-t-title">相关介绍</span>
         <span class="c-t-more">查看更多+</span>
       </div>
-      <div class="t-content">
-        <div class="t-c-item" v-for="(item, index) in noticeList" :key="index">
-          <div class="t-c-i-tile">{{ item.title }}</div>
-          <div class="t-c-i-desc">{{ item.introduction }}</div>
-          <div class="t-c-i-date">
-            {{ dayjs(item.addTime).format("YYYY-MM-DD") }}
-          </div>
+      <div class="f-content">
+        <img
+          :src="'http://localhost:8080/zufangguanli/' + websiteInfo.picture1"
+          alt=""
+          class="f-c-img"
+          draggable="false"
+        />
+        <div class="f-c-text">
+          {{ websiteInfo.content }}
         </div>
       </div>
     </div>
@@ -116,6 +136,7 @@ import {
   getHouseList,
   getDevelopList,
   getNoticeList,
+  getWebsiteInfo,
 } from "../../api/zuke";
 import dayjs from "dayjs";
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
@@ -129,6 +150,8 @@ const swiperList = ref([]);
 const houseList = ref([]);
 const developList = ref({});
 const noticeList = ref([]);
+const websiteInfo = ref({});
+
 onMounted(async () => {
   const res = await getSwiperList();
   if (res.code == 0) {
@@ -154,6 +177,10 @@ onMounted(async () => {
   });
   if (res4.code == 0) {
     noticeList.value = res4.data.list;
+  }
+  const res5 = await getWebsiteInfo();
+  if (res5.code == 0) {
+    websiteInfo.value = res5.data;
   }
 });
 </script>
@@ -252,6 +279,10 @@ onMounted(async () => {
       margin-left: 20px;
       font-size: 24px;
       font-weight: 400;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 7;
+      -webkit-box-orient: vertical;
     }
   }
   .t-content {

@@ -26,3 +26,7 @@ export const getDevelopList = (data) => {
 export const getNoticeList = (data) => {
     return service(`/news/list`, data, "get")
 }
+// 获取网站介绍
+export const getWebsiteInfo = (data) => {
+    return service(`/systemintro/detail/1`, data, "get")
+}
