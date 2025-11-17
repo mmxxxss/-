@@ -60,10 +60,10 @@
             class="h-c-i-img"
             draggable="false"
           />
-          <div class="h-c-i-name">房屋名称：{{ item.fangwumingcheng }}</div>
-          <div class="h-c-i-address">房屋地址：{{ item.fangwudizhi }}</div>
-          <div class="h-c-i-price">租赁价格：{{ item.zulinjiage }}元/月</div>
-          <div class="h-c-i-phone">联系电话：{{ item.shoujihao }}</div>
+          <div class="h-c-i-name">名称：{{ item.fangwumingcheng }}</div>
+          <div class="h-c-i-address">地址：{{ item.fangwudizhi }}</div>
+          <div class="h-c-i-price">价格：{{ item.zulinjiage }}元/月</div>
+          <div class="h-c-i-phone">电话：{{ item.shoujihao }}</div>
         </div>
       </div>
     </div>

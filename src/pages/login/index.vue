@@ -1,5 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container" :style="{ paddingTop: statusBarHeight + 'px' }">
+    <div
+      :style="{ height: topHeight + 'px', lineHeight: topHeight + 'px' }"
+      class="top-title"
+    >
+      登陆
+    </div>
     <h1 class="title">您好，</h1>
     <p class="desc">
       欢迎来到租房平台，立即<span class="register" @click="goRegister"
@@ -43,6 +49,13 @@ import { ref } from "vue";
 import { goZuKeLogin } from "../../api/zuke";
 import { goFangDongLogin } from "../../api/fangdong";
 import { goUserLogin } from "../../api/user";
+const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
+const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
+const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
+// 状态栏到胶囊的间距
+const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
+const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
+const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const form = ref({
   username: "",
   password: "",
@@ -83,6 +96,12 @@ const goRegister = () => {
 .container {
   height: 100vh;
   padding: 0 30px;
+  .top-title {
+    width: 100%;
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+  }
   .title {
     margin-top: 50px;
     font-size: 60px;
