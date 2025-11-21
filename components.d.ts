@@ -7,7 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    NoticeDialog: typeof import('./src/components/noticeDialog.vue')['default']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
+    NutDialog: typeof import('@nutui/nutui-taro')['Dialog']
     NutForm: typeof import('@nutui/nutui-taro')['Form']
     NutFormItem: typeof import('@nutui/nutui-taro')['FormItem']
     NutInput: typeof import('@nutui/nutui-taro')['Input']

@@ -83,7 +83,12 @@
         <span class="c-t-more">查看更多+</span>
       </div>
       <div class="t-content">
-        <div class="t-c-item" v-for="(item, index) in noticeList" :key="index">
+        <div
+          class="t-c-item"
+          v-for="(item, index) in noticeList"
+          :key="index"
+          @click="openNotice(item)"
+        >
           <div class="t-c-i-tile">{{ item.title }}</div>
           <div class="t-c-i-desc">{{ item.introduction }}</div>
           <div class="t-c-i-date">
@@ -127,6 +132,11 @@
       </div>
     </div>
   </div>
+  <noticeDialog
+    :visible="noticeVisible"
+    :param="noticeParam"
+    @updateVisible="updateNoticeVisible"
+  />
 </template>
 
 <script setup>
@@ -139,19 +149,30 @@ import {
   getWebsiteInfo,
 } from "../../api/zuke";
 import dayjs from "dayjs";
+import noticeDialog from "../../components/noticeDialog.vue";
+// 组件参数
+const noticeVisible = ref(false);
+const noticeParam = ref({});
+const updateNoticeVisible = (visible) => {
+  noticeVisible.value = visible;
+};
+const openNotice = (item) => {
+  noticeVisible.value = true;
+  noticeParam.value = item;
+};
+// 胶囊信息
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
 const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
 const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
-// 状态栏到胶囊的间距
 const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
 const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
 const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
+// 页面数据
 const swiperList = ref([]);
 const houseList = ref([]);
 const developList = ref({});
 const noticeList = ref([]);
 const websiteInfo = ref({});
-
 onMounted(async () => {
   const res = await getSwiperList();
   if (res.code == 0) {
@@ -185,132 +206,134 @@ onMounted(async () => {
 });
 </script>
 <style lang="scss">
-.title {
-  width: 100%;
-  font-size: 32px;
-  font-weight: 400;
-  text-align: center;
-  position: fixed;
-  background: white;
-  left: 0;
-  z-index: 999;
-}
-.swiper-img {
-  height: 100%;
-  width: 90%;
-  border-radius: 20px;
-  margin: 0 auto;
-  display: block;
-}
-.menu-list {
-  margin-top: 20px;
-  padding: 10px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(177, 58, 61);
-  .menu-item {
-    width: 25%;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 24px;
+.container {
+  .title {
+    width: 100%;
+    font-size: 32px;
     font-weight: 400;
     text-align: center;
-    .img {
-      width: 55px;
-      height: 55px;
-      margin-bottom: 10px;
-    }
+    position: fixed;
+    background: white;
+    left: 0;
+    z-index: 999;
   }
-}
-.common {
-  margin-top: 20px;
-  padding: 0 30px;
-  .c-top {
+  .swiper-img {
+    height: 100%;
+    width: 90%;
+    border-radius: 20px;
+    margin: 0 auto;
+    display: block;
+  }
+  .menu-list {
+    margin-top: 20px;
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 24px;
-    font-weight: 400;
-    text-align: center;
-    margin-bottom: 10px;
-    .c-t-title {
-      font-size: 36px;
-    }
-  }
-  .h-content {
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    .h-c-item {
-      margin: 0px 10px 10px 10px;
+    background-color: rgb(177, 58, 61);
+    .menu-item {
+      width: 25%;
+      height: 100px;
       display: flex;
       flex-direction: column;
-      background-color: #f5f5f5;
-      border-radius: 20px;
-      padding: 10px;
-      box-sizing: border-box;
-      .h-c-i-img {
-        width: 260px;
-        height: 300px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-      }
-      .h-c-i-text {
-        font-size: 24px;
-        font-weight: 400;
-      }
-    }
-  }
-  .f-content {
-    width: 100%;
-    display: flex;
-    .f-c-img {
-      flex-shrink: 0;
-      width: 300px;
-      height: 230px;
-      border-radius: 10px;
-    }
-    .f-c-text {
-      margin-left: 20px;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
       font-size: 24px;
       font-weight: 400;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 7;
-      -webkit-box-orient: vertical;
+      text-align: center;
+      .img {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 10px;
+      }
     }
   }
-  .t-content {
-    .t-c-item {
+  .common {
+    margin-top: 20px;
+    padding: 0 30px;
+    .c-top {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 400;
+      text-align: center;
       margin-bottom: 10px;
-      padding: 20px;
-      background-color: rgb(177, 58, 61);
-      .t-c-i-tile {
-        font-size: 30px;
-        font-weight: 400;
-        color: white;
+      .c-t-title {
+        font-size: 36px;
       }
-      .t-c-i-desc {
+    }
+    .h-content {
+      width: 100%;
+      display: flex;
+      overflow: auto;
+      .h-c-item {
+        margin: 0px 10px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        background-color: #f5f5f5;
+        border-radius: 20px;
+        padding: 10px;
+        box-sizing: border-box;
+        .h-c-i-img {
+          width: 260px;
+          height: 300px;
+          border-radius: 10px;
+          margin-bottom: 10px;
+        }
+        .h-c-i-text {
+          font-size: 24px;
+          font-weight: 400;
+        }
+      }
+    }
+    .f-content {
+      width: 100%;
+      display: flex;
+      .f-c-img {
+        flex-shrink: 0;
+        width: 300px;
+        height: 230px;
+        border-radius: 10px;
+      }
+      .f-c-text {
+        margin-left: 20px;
+        font-size: 24px;
+        font-weight: 400;
         overflow: hidden;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 7;
         -webkit-box-orient: vertical;
-        font-size: 24px;
-        font-weight: 300;
-        color: #fff;
       }
-      .t-c-i-date {
-        font-size: 24px;
-        font-weight: 400;
-        color: white;
-        align-self: flex-end;
+    }
+    .t-content {
+      .t-c-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        padding: 20px;
+        background-color: rgb(177, 58, 61);
+        .t-c-i-tile {
+          font-size: 30px;
+          font-weight: 400;
+          color: white;
+        }
+        .t-c-i-desc {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          font-size: 24px;
+          font-weight: 300;
+          color: #fff;
+        }
+        .t-c-i-date {
+          font-size: 24px;
+          font-weight: 400;
+          color: white;
+          align-self: flex-end;
+        }
       }
     }
   }
