@@ -3,9 +3,12 @@ export default {
     'pages/zuke/index',
     'pages/login/index',
     'pages/register/index',
-    'pages/index/index',
     'pages/fangdong/index',
-    'pages/users/index'
+    'pages/users/index',
+    'pages/notice/index',
+    'pages/messageBoard/index',
+    'pages/room/index',
+    'pages/consultation/index',
   ],
   window: {
     backgroundTextStyle: 'light',

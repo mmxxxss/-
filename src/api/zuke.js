@@ -30,3 +30,7 @@ export const getNoticeList = (data) => {
 export const getWebsiteInfo = (data) => {
     return service(`/systemintro/detail/1`, data, "get")
 }
+// 获取房屋咨询列表
+export const getConsultationList = (data) => {
+    return service(`/fangwuzixun/list`, data, "get")
+}

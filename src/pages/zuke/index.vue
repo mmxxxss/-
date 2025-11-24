@@ -38,19 +38,19 @@
       </nut-swiper-item>
     </nut-swiper>
     <div class="menu-list">
-      <div class="menu-item">
+      <div class="menu-item" @click="toNotice">
         <image src="../../assets/tongzhigonggao.png" alt="" class="img" />
         <span>通知公告</span>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" @click="toConsultation">
         <image src="../../assets/fangwuzixun.png" alt="" class="img" />
         <span>房屋咨询</span>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" @click="toRoom">
         <image src="../../assets/fangyuanxinxi.png" alt="" class="img" />
         <span>房源信息</span>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" @click="toMessageBoard">
         <image src="../../assets/liuyanban.png" alt="" class="img" />
         <span>留言板</span>
       </div>
@@ -80,7 +80,7 @@
     <div class="common">
       <div class="c-top">
         <span class="c-t-title">通知公告</span>
-        <span class="c-t-more">查看更多+</span>
+        <span class="c-t-more" @click="toNotice">查看更多+</span>
       </div>
       <div class="t-content">
         <div
@@ -140,6 +140,7 @@
 </template>
 
 <script setup>
+import Taro from "@tarojs/taro";
 import { ref, onMounted } from "vue";
 import {
   getSwiperList,
@@ -204,6 +205,26 @@ onMounted(async () => {
     websiteInfo.value = res5.data;
   }
 });
+const toNotice = () => {
+  Taro.navigateTo({
+    url: "/pages/notice/index",
+  });
+};
+const toConsultation = () => {
+  Taro.navigateTo({
+    url: "/pages/consultation/index",
+  });
+};
+const toRoom = () => {
+  Taro.navigateTo({
+    url: "/pages/room/index",
+  });
+};
+const toMessageBoard = () => {
+  Taro.navigateTo({
+    url: "/pages/messageBoard/index",
+  });
+};
 </script>
 <style lang="scss">
 .container {
