@@ -34,3 +34,7 @@ export const getWebsiteInfo = (data) => {
 export const getConsultationList = (data) => {
     return service(`/fangwuzixun/list`, data, "get")
 }
+// 获取房屋咨询详情
+export const getConsultationDetail = (id) => {
+    return service(`/fangwuzixun/detail/${id}`, {}, "get")
+}

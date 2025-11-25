@@ -9,6 +9,7 @@ export default {
     'pages/messageBoard/index',
     'pages/room/index',
     'pages/consultation/index',
+    'pages/consultationDetail/index',
   ],
   window: {
     backgroundTextStyle: 'light',

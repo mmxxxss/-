@@ -1,3 +1,3 @@
 export default {
-    navigationBarTitleText: '房屋咨询'
+    navigationBarTitleText: '房屋资讯'
 }

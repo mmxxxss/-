@@ -1,18 +1,52 @@
+<script setup>
+import { getConsultationList } from "../../api/zuke";
+import { ref } from "vue";
+import Taro from "@tarojs/taro";
+// 组件参数
+const consultationList = ref([]);
+// 组件方法
+const openConsultation = (item) => {
+  Taro.navigateTo({
+    url: "/pages/consultationDetail/index?id=" + item.id,
+  });
+};
+const getConsultationListData = async () => {
+  let param = {
+    page: 1,
+    limit: 10,
+  };
+  const res = await getConsultationList(param);
+  if (res.code == 0) {
+    consultationList.value = res.data.list;
+  }
+};
+getConsultationListData();
+</script>
+
 <template>
-  <div v-for="(item, index) in consultationList" :key="index" class="item">
-    <image
-      :src="'http://localhost:8080/zufangguanli/' + item.tupian.split(',')[0]"
-      alt=""
-      class="img"
-    />
-    <div class="box">
-      <div class="title">标题：{{ item.biaoti }}</div>
-      <div class="content">简介：{{ item.jianjie }}</div>
+  <div class="container">
+    <div
+      v-for="(item, index) in consultationList"
+      :key="index"
+      class="item"
+      @click="openConsultation(item)"
+    >
+      <image
+        :src="'http://localhost:8080/zufangguanli/' + item.tupian.split(',')[0]"
+        alt=""
+        class="img"
+      />
+      <div class="box">
+        <div class="title">标题：{{ item.biaoti }}</div>
+        <div class="content">简介：{{ item.jianjie }}</div>
+      </div>
     </div>
   </div>
 </template>
-
 <style lang="scss">
+.container {
+  padding-bottom: 20px;
+}
 .item {
   width: 90%;
   height: 300px;
@@ -44,25 +78,3 @@
   }
 }
 </style>
-
-<script setup>
-import { getConsultationList } from "../../api/zuke";
-import { ref, onMounted } from "vue";
-// 组件参数
-const consultationList = ref([]);
-// 组件方法
-const getConsultationListData = async () => {
-  let param = {
-    page: 1,
-    limit: 10,
-  };
-  const res = await getConsultationList(param);
-  if (res.code == 0) {
-    consultationList.value = res.data.list;
-  }
-};
-// 组件挂载时调用
-onMounted(() => {
-  getConsultationListData();
-});
-</script>
