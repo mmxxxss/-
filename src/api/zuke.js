@@ -5,6 +5,10 @@ import Taro from "@tarojs/taro";
 export const goZuKeLogin = (data) => {
     return service(`/zuke/login?username=${data.username}&password=${data.password}`, {}, "post")
 }
+// 会话保持
+export const keepSession = () => {
+    return service(`/zuke/session`, {}, "get")
+}
 // 注册
 export const goZuKeRegister = (data) => {
     return service(`/zuke/register`, data, "post")
@@ -37,4 +41,28 @@ export const getConsultationList = (data) => {
 // 获取房屋咨询详情
 export const getConsultationDetail = (id) => {
     return service(`/fangwuzixun/detail/${id}`, {}, "get")
+}
+// 获取房源信息
+export const getRoomList = (data) => {
+    return service(`/fangyuanxinxi/list`, data, "get")
+}
+// 获取房源信息详情
+export const getRoomDetail = (id) => {
+    return service(`/fangyuanxinxi/detail/${id}`, {}, "get")
+}
+// 获取是否收藏
+export const getIsCollect = (data) => {
+    return service(`/storeup/list`, data, "get")
+}
+// 更新收藏显示
+export const updateCollect = (data) => {
+    return service(`/fangyuanxinxi/update`, data, "post")
+}
+// 收藏房源
+export const addCollect = (data) => {
+    return service(`/storeup/add`, data, "post")
+}
+// 取消收藏
+export const delCollect = (data) => {
+    return service(`/storeup/delete`, data, "post")
 }

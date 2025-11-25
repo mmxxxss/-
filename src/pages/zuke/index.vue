@@ -58,10 +58,15 @@
     <div class="common">
       <div class="c-top">
         <span class="c-t-title">房源信息推荐</span>
-        <span class="c-t-more">查看更多+</span>
+        <span class="c-t-more" @click="toRoom">查看更多+</span>
       </div>
       <div class="h-content">
-        <div v-for="(item, index) in houseList" :key="index" class="h-c-item">
+        <div
+          v-for="(item, index) in houseList"
+          :key="index"
+          class="h-c-item"
+          @click="toRoomDetail(item.id)"
+        >
           <img
             :src="
               'http://localhost:8080/zufangguanli/' +
@@ -148,6 +153,7 @@ import {
   getDevelopList,
   getNoticeList,
   getWebsiteInfo,
+  keepSession,
 } from "../../api/zuke";
 import dayjs from "dayjs";
 import noticeDialog from "../../components/noticeDialog.vue";
@@ -175,6 +181,10 @@ const developList = ref({});
 const noticeList = ref([]);
 const websiteInfo = ref({});
 onMounted(async () => {
+  const session = await keepSession();
+  if (session.code == 0) {
+    Taro.setStorageSync("userid", session.data.id);
+  }
   const res = await getSwiperList();
   if (res.code == 0) {
     swiperList.value = res.data.list;
@@ -218,6 +228,11 @@ const toConsultation = () => {
 const toRoom = () => {
   Taro.navigateTo({
     url: "/pages/room/index",
+  });
+};
+const toRoomDetail = (id) => {
+  Taro.navigateTo({
+    url: "/pages/roomDetail/index?id=" + id,
   });
 };
 const toMessageBoard = () => {

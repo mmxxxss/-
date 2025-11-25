@@ -8,6 +8,7 @@ export default {
     'pages/notice/index',
     'pages/messageBoard/index',
     'pages/room/index',
+    'pages/roomDetail/index',
     'pages/consultation/index',
     'pages/consultationDetail/index',
   ],
