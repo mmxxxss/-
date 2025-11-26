@@ -85,7 +85,7 @@ const delCollectData = async () => {
 };
 </script>
 <template>
-  <div>
+  <div class="container">
     <nut-swiper
       :init-page="2"
       :auto-play="3000"
@@ -107,18 +107,18 @@ const delCollectData = async () => {
         />
       </nut-swiper-item>
     </nut-swiper>
-    <div class="content">
-      <div class="top">
-        <h1>{{ roomDetail.fangyuanbianhao }}</h1>
-        <div v-if="!isCollect" class="collect" @click="addCollectData">
-          <span>收藏</span
-          ><image src="../../../assets/cancelLike.png" alt="" class="img" />
-        </div>
-        <div v-else class="collect" @click="delCollectData">
-          <span>取消收藏</span
-          ><image src="../../../assets/like.png" alt="" class="img" />
-        </div>
+    <div class="top">
+      <h1>{{ roomDetail.fangyuanbianhao }}</h1>
+      <div v-if="!isCollect" class="collect" @click="addCollectData">
+        <span>收藏</span
+        ><image src="../../../assets/cancelLike.png" alt="" class="img" />
       </div>
+      <div v-else class="collect" @click="delCollectData">
+        <span>取消收藏</span
+        ><image src="../../../assets/like.png" alt="" class="img" />
+      </div>
+    </div>
+    <div class="content">
       <div class="content-item">
         <div class="content-item-left">
           <div>房屋名称</div>
@@ -226,44 +226,59 @@ const delCollectData = async () => {
         </div>
       </div>
     </div>
-    <nut-button type="success">预约</nut-button>
+    <div class="reserve-btn">
+      <nut-button color="#b13a3d">预约</nut-button>
+    </div>
+    <div class="discuss"></div>
   </div>
 </template>
 <style lang="scss">
+.container {
+  background-color: #f0efef;
+  padding-bottom: 20px;
+}
 .square-swiper {
   width: 100%;
   height: 600px;
 }
-.content {
+.top {
+  padding: 0 20px;
+  height: 90px;
+  background-color: white;
   display: flex;
-  padding: 20px;
-  flex-direction: column;
-  .top {
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    font-weight: 400;
+    font-size: 48px;
+  }
+  .collect {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    h1 {
-      font-size: 36px;
+    span {
+      font-size: 28px;
+      color: #8a8a8a;
     }
-    .collect {
-      display: flex;
-      align-items: center;
-      span {
-        font-size: 28px;
-        color: #8a8a8a;
-      }
-      .img {
-        width: 32px;
-        height: 32px;
-        margin-left: 5px;
-      }
+    .img {
+      width: 32px;
+      height: 32px;
+      margin-left: 5px;
     }
   }
+}
+.content {
+  margin: 20px 0;
+  display: flex;
+  padding: 20px 20px 0 20px;
+  flex-direction: column;
+  background-color: white;
+
   .content-item {
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #f0efef;
     &-left {
       width: 350px;
       &-text {
@@ -279,5 +294,15 @@ const delCollectData = async () => {
       }
     }
   }
+}
+.reserve-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 550px;
+}
+.discuss {
+  width: 100%;
+  background-color: white;
+  height: 200px;
 }
 </style>

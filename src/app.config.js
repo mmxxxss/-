@@ -9,6 +9,7 @@ export default {
   subPackages: [
     {
       root: 'zuke',
+      name: 'zuke',
       pages: [
         'pages/consultation/index',
         'pages/consultationDetail/index',
@@ -17,7 +18,6 @@ export default {
         'pages/room/index',
         'pages/roomDetail/index',
       ],
-      independent: true,
     }
   ],
   window: {
