@@ -17,7 +17,7 @@ const getRoomListData = async () => {
 };
 const openRoomDetail = (item) => {
   Taro.navigateTo({
-    url: "/pages/roomDetail/index?id=" + item.id,
+    url: "/zuke/roomDetail/index?id=" + item.id,
   });
 };
 getRoomListData();

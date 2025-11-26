@@ -7,7 +7,7 @@ const consultationList = ref([]);
 // 组件方法
 const openConsultation = (item) => {
   Taro.navigateTo({
-    url: "/pages/consultationDetail/index?id=" + item.id,
+    url: "/zuke/consultationDetail/index?id=" + item.id,
   });
 };
 const getConsultationListData = async () => {

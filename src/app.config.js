@@ -5,12 +5,19 @@ export default {
     'pages/register/index',
     'pages/fangdong/index',
     'pages/users/index',
-    'pages/notice/index',
-    'pages/messageBoard/index',
-    'pages/room/index',
-    'pages/roomDetail/index',
-    'pages/consultation/index',
-    'pages/consultationDetail/index',
+  ],
+  subPackages: [
+    {
+      root: 'zuke',
+      pages: [
+        'consultation/index',
+        'consultationDetail/index',
+        'messageBoard/index',
+        'notice/index',
+        'room/index',
+        'roomDetail/index',
+      ]
+    }
   ],
   window: {
     backgroundTextStyle: 'light',
