@@ -10,13 +10,14 @@ export default {
     {
       root: 'zuke',
       pages: [
-        'consultation/index',
-        'consultationDetail/index',
-        'messageBoard/index',
-        'notice/index',
-        'room/index',
-        'roomDetail/index',
-      ]
+        'pages/consultation/index',
+        'pages/consultationDetail/index',
+        'pages/messageBoard/index',
+        'pages/notice/index',
+        'pages/room/index',
+        'pages/roomDetail/index',
+      ],
+      independent: true,
     }
   ],
   window: {

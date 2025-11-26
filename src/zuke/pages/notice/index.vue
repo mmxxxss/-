@@ -21,9 +21,9 @@
 </template>
 <script setup>
 import dayjs from "dayjs";
-import noticeDialog from "../../components/noticeDialog.vue";
-import { getNoticeList } from "../../api/zuke";
-import { ref, onMounted } from "vue";
+import noticeDialog from "../../../components/noticeDialog.vue";
+import { getNoticeList } from "../../../api/zuke";
+import { ref } from "vue";
 // 组件参数
 const noticeList = ref([]);
 // 通知公告弹窗参数
@@ -52,10 +52,7 @@ const getNoticeListData = async () => {
     noticeList.value = res.data.list;
   }
 };
-// 组件挂载时调用
-onMounted(() => {
-  getNoticeListData();
-});
+getNoticeListData();
 </script>
 <style lang="scss">
 .content {

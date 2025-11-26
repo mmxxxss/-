@@ -5,7 +5,7 @@ import {
   updateCollect,
   addCollect,
   delCollect,
-} from "../../api/zuke";
+} from "../../../api/zuke";
 import { ref } from "vue";
 import dayjs from "dayjs";
 import Taro from "@tarojs/taro";
@@ -112,11 +112,11 @@ const delCollectData = async () => {
         <h1>{{ roomDetail.fangyuanbianhao }}</h1>
         <div v-if="!isCollect" class="collect" @click="addCollectData">
           <span>收藏</span
-          ><image src="../../assets/cancelLike.png" alt="" class="img" />
+          ><image src="../../../assets/cancelLike.png" alt="" class="img" />
         </div>
         <div v-else class="collect" @click="delCollectData">
           <span>取消收藏</span
-          ><image src="../../assets/like.png" alt="" class="img" />
+          ><image src="../../../assets/like.png" alt="" class="img" />
         </div>
       </div>
       <div class="content-item">
@@ -226,6 +226,7 @@ const delCollectData = async () => {
         </div>
       </div>
     </div>
+    <nut-button type="success">预约</nut-button>
   </div>
 </template>
 <style lang="scss">

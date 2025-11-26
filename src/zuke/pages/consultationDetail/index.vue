@@ -1,5 +1,5 @@
 <script setup>
-import { getConsultationDetail } from "../../api/zuke";
+import { getConsultationDetail } from "../../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import dayjs from "dayjs";

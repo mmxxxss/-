@@ -1,5 +1,5 @@
 <script setup>
-import { getConsultationList } from "../../api/zuke";
+import { getConsultationList } from "../../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 // 组件参数
@@ -7,7 +7,7 @@ const consultationList = ref([]);
 // 组件方法
 const openConsultation = (item) => {
   Taro.navigateTo({
-    url: "/zuke/consultationDetail/index?id=" + item.id,
+    url: "/zuke/pages/consultationDetail/index?id=" + item.id,
   });
 };
 const getConsultationListData = async () => {
