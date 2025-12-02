@@ -7,9 +7,9 @@ import {
   delCollect,
   getCommentList,
   delComment,
+  sendComment,
 } from "../../../api/zuke";
 import { ref } from "vue";
-import dayjs from "dayjs";
 import Taro from "@tarojs/taro";
 // 组件参数
 const roomDetail = ref({});
@@ -102,9 +102,9 @@ const getCommentListData = async () => {
 };
 getCommentListData();
 // 跳转到评论列表
-const show = ref(false);
+const isShowComment = ref(false);
 const toCommentList = () => {
-  show.value = true;
+  isShowComment.value = true;
 };
 const delCommentFn = async (item) => {
   let param = [item.id];
@@ -114,6 +114,37 @@ const delCommentFn = async (item) => {
       title: "删除成功",
       icon: "none",
     });
+    roomDetail.value.storeupNumber -= 1;
+    await updateCollect(roomDetail.value);
+    getRoomDetailData();
+    getCommentListData();
+  }
+};
+// 发表评论
+const commentVal = ref("");
+const isShowSendComment = ref(false);
+const openSendComment = () => {
+  isShowSendComment.value = true;
+};
+const sendCommentFn = async () => {
+  let params = {
+    avatar: "",
+    content: commentVal.value,
+    refid: Taro.getCurrentInstance().router?.params?.id,
+    userid: userid,
+    nickname: Taro.getStorageSync("nickname"),
+  };
+  const res = await sendComment(params);
+  if (res.code == 0) {
+    Taro.showToast({
+      title: "发表成功",
+      icon: "none",
+    });
+    commentVal.value = "";
+    isShowSendComment.value = false;
+    roomDetail.value.discussNumber += 1;
+    await updateCollect(roomDetail.value);
+    getRoomDetailData();
     getCommentListData();
   }
 };
@@ -287,13 +318,14 @@ const delCommentFn = async (item) => {
       <nut-button color="#b13a3d">预约</nut-button>
     </div>
     <nut-popup
-      v-model:visible="show"
+      v-model:visible="isShowComment"
       :style="{ height: '500px' }"
       position="bottom"
     >
       <div class="comment" style="height: 460px">
         <div class="comment-top">
           <div class="comment-top-text">评论·{{ commentList.length }}</div>
+          <div class="comment-top-view" @click="openSendComment">发表</div>
         </div>
         <div style="height: 400px; overflow: auto">
           <div
@@ -325,6 +357,22 @@ const delCommentFn = async (item) => {
             >
           </div>
         </div>
+      </div>
+    </nut-popup>
+    <nut-popup
+      v-model:visible="isShowSendComment"
+      :style="{ height: '400px' }"
+      position="bottom"
+    >
+      <div style="display: flex; flex-direction: column; padding: 10px 20px">
+        <nut-button
+          type="primary"
+          @click="sendCommentFn"
+          size="mini"
+          style="align-self: flex-end"
+          >发表</nut-button
+        >
+        <nut-textarea v-model="commentVal" placeholder="请输入评论" />
       </div>
     </nut-popup>
   </div>

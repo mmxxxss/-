@@ -74,3 +74,7 @@ export const getCommentList = (data) => {
 export const delComment = (data) => {
     return service(`/discussfangyuanxinxi/delete`, data, "post")
 }
+// 发表评论
+export const sendComment = (data) => {
+    return service(`/discussfangyuanxinxi/add`, data, "post")
+}
