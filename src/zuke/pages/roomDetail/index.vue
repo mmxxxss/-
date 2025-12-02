@@ -327,7 +327,7 @@ const sendCommentFn = async () => {
           <div class="comment-top-text">评论·{{ commentList.length }}</div>
           <div class="comment-top-view" @click="openSendComment">发表</div>
         </div>
-        <div style="height: 400px; overflow: auto">
+        <div style="height: 400px; overflow-y: auto">
           <div
             v-for="(item, index) in commentList"
             :key="index"
@@ -462,15 +462,18 @@ const sendCommentFn = async () => {
     display: flex;
     margin-top: 20px;
     .comment-item-avatar {
+      flex-shrink: 0;
       margin-top: 6px;
       width: 30px;
       height: 30px;
       border: 1px solid #dfdfdf;
       border-radius: 50%;
+      object-fit: cover;
     }
     .comment-item-right {
+      flex: 1;
       margin-left: 15px;
-      width: 580px;
+      min-width: 0;
       .comment-item-right-nickname {
         font-size: 32px;
         color: black;
@@ -478,6 +481,8 @@ const sendCommentFn = async () => {
       .comment-item-right-content {
         font-size: 28px;
         color: #8a8a8a;
+        white-space: pre-wrap;
+        word-wrap: break-word;
       }
     }
   }
