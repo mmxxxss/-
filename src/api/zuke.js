@@ -66,3 +66,11 @@ export const addCollect = (data) => {
 export const delCollect = (data) => {
     return service(`/storeup/delete`, data, "post")
 }
+// 获取评论列表
+export const getCommentList = (data) => {
+    return service(`/discussfangyuanxinxi/list`, data, "get")
+}
+// 删除评论
+export const delComment = (data) => {
+    return service(`/discussfangyuanxinxi/delete`, data, "post")
+}

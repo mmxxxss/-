@@ -5,12 +5,15 @@ import {
   updateCollect,
   addCollect,
   delCollect,
+  getCommentList,
+  delComment,
 } from "../../../api/zuke";
 import { ref } from "vue";
 import dayjs from "dayjs";
 import Taro from "@tarojs/taro";
 // 组件参数
 const roomDetail = ref({});
+const userid = Taro.getStorageSync("userid");
 // 轮播图列表
 const swiperList = ref([]);
 // 获取房源详情
@@ -28,13 +31,12 @@ const isCollect = ref(false);
 const collectInfo = ref({});
 const getIsCollectData = async () => {
   let id = Taro.getCurrentInstance().router?.params?.id;
-  let userid = Taro.getStorageSync("userid");
   let param = {
     page: 1,
     limit: 1,
     type: 1,
-    refId: id,
-    tableName: "fangyuanxinxi",
+    refid: id,
+    tablename: "fangyuanxinxi",
     userid: userid,
   };
   const res = await getIsCollect(param);
@@ -47,7 +49,6 @@ getIsCollectData();
 // 收藏房源
 const addCollectData = async () => {
   let id = Taro.getCurrentInstance().router?.params?.id;
-  let userid = Taro.getStorageSync("userid");
   let param = {
     name: roomDetail.value.fangwumingcheng,
     picture: roomDetail.value.fangwutupian.split(",")[0],
@@ -81,6 +82,39 @@ const delCollectData = async () => {
     await updateCollect(roomDetail.value);
     getRoomDetailData();
     getIsCollectData();
+  }
+};
+const commentList = ref([]);
+// 获取评论列表
+const getCommentListData = async () => {
+  let id = Taro.getCurrentInstance().router?.params?.id;
+  let param = {
+    sort: "id",
+    order: "desc",
+    page: 1,
+    limit: 20,
+    refid: id,
+  };
+  const res = await getCommentList(param);
+  if (res.code == 0) {
+    commentList.value = res.data.list;
+  }
+};
+getCommentListData();
+// 跳转到评论列表
+const show = ref(false);
+const toCommentList = () => {
+  show.value = true;
+};
+const delCommentFn = async (item) => {
+  let param = [item.id];
+  const res = await delComment(param);
+  if (res.code == 0) {
+    Taro.showToast({
+      title: "删除成功",
+      icon: "none",
+    });
+    getCommentListData();
   }
 };
 </script>
@@ -226,10 +260,73 @@ const delCollectData = async () => {
         </div>
       </div>
     </div>
+    <div class="comment">
+      <div class="comment-top">
+        <div class="comment-top-text">评论·{{ commentList.length }}</div>
+        <div class="comment-top-view" @click="toCommentList">查看全部+</div>
+      </div>
+      <div
+        v-for="(item, index) in commentList"
+        :key="index"
+        class="comment-item"
+      >
+        <image
+          :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
+          alt=""
+          class="comment-item-avatar"
+        />
+        <div class="comment-item-right">
+          <div class="comment-item-right-nickname">
+            {{ item.nickname || "匿名用户" }}
+          </div>
+          <div v-html="item.content" class="comment-item-right-content"></div>
+        </div>
+      </div>
+    </div>
     <div class="reserve-btn">
       <nut-button color="#b13a3d">预约</nut-button>
     </div>
-    <div class="discuss"></div>
+    <nut-popup
+      v-model:visible="show"
+      :style="{ height: '500px' }"
+      position="bottom"
+    >
+      <div class="comment" style="height: 460px">
+        <div class="comment-top">
+          <div class="comment-top-text">评论·{{ commentList.length }}</div>
+        </div>
+        <div style="height: 400px; overflow: auto">
+          <div
+            v-for="(item, index) in commentList"
+            :key="index"
+            class="comment-item"
+          >
+            <image
+              :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
+              alt=""
+              class="comment-item-avatar"
+            />
+            <div class="comment-item-right">
+              <div class="comment-item-right-nickname">
+                {{ item.nickname || "匿名用户" }}
+              </div>
+              <div
+                v-html="item.content"
+                class="comment-item-right-content"
+              ></div>
+            </div>
+            <nut-button
+              type="primary"
+              v-if="item.userid == userid"
+              size="mini"
+              class="comment-item-btn"
+              @click="delCommentFn(item)"
+              >删除</nut-button
+            >
+          </div>
+        </div>
+      </div>
+    </nut-popup>
   </div>
 </template>
 <style lang="scss">
@@ -295,14 +392,51 @@ const delCollectData = async () => {
     }
   }
 }
+.comment {
+  padding: 20px;
+  height: 300px;
+  overflow: hidden;
+  background-color: white;
+  .comment-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .comment-top-text {
+      font-size: 35px;
+      color: black;
+    }
+    .comment-top-view {
+      font-size: 28px;
+      color: #8a8a8a;
+    }
+  }
+  .comment-item {
+    display: flex;
+    margin-top: 20px;
+    .comment-item-avatar {
+      margin-top: 6px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #dfdfdf;
+      border-radius: 50%;
+    }
+    .comment-item-right {
+      margin-left: 15px;
+      width: 580px;
+      .comment-item-right-nickname {
+        font-size: 32px;
+        color: black;
+      }
+      .comment-item-right-content {
+        font-size: 28px;
+        color: #8a8a8a;
+      }
+    }
+  }
+}
 .reserve-btn {
   position: fixed;
   bottom: 20px;
   left: 550px;
-}
-.discuss {
-  width: 100%;
-  background-color: white;
-  height: 200px;
 }
 </style>
