@@ -114,7 +114,7 @@ const delCommentFn = async (item) => {
       title: "删除成功",
       icon: "none",
     });
-    roomDetail.value.storeupNumber -= 1;
+    roomDetail.value.discussNumber -= 1;
     await updateCollect(roomDetail.value);
     getRoomDetailData();
     getCommentListData();
