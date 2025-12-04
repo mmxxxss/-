@@ -12,9 +12,11 @@ import {
 } from "../../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import dayjs from "dayjs";
 // 组件参数
 const roomDetail = ref({});
-const userid = Taro.getStorageSync("userid");
+const userid = Taro.getStorageSync("userinfo")?.id;
+const zukeming = Taro.getStorageSync("userinfo")?.zukeming;
 // 轮播图列表
 const swiperList = ref([]);
 // 获取房源详情
@@ -167,11 +169,21 @@ const saveReserve = async () => {
     ...reserveForm.value,
   };
   const res = await reserveRoom(params);
-  Taro.showToast({
-    title: "预约成功",
-    icon: "none",
-  });
-  closeReserve();
+  if (res.code == 0) {
+    Taro.showToast({
+      title: "预约成功",
+      icon: "none",
+    });
+    closeReserve();
+  }
+};
+const datePopupVisible = ref(false);
+const min = new Date();
+const max = new Date(2026, 10, 1);
+const date = new Date();
+const confirm = ({ selectedValue }) => {
+  datePopupVisible.value = false;
+  reserveForm.value.yuyueshijian = dayjs(selectedValue).format("YYYY-MM-DD");
 };
 const previewImg = (item) => {
   Taro.previewImage({
@@ -199,6 +211,7 @@ const previewImg = (item) => {
           alt=""
           style="height: 100%; width: 100%"
           draggable="false"
+          @click="previewImg(item)"
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -344,7 +357,7 @@ const previewImg = (item) => {
         </div>
       </div>
     </div>
-    <div class="reserve-btn">
+    <div class="save">
       <nut-button color="#b13a3d" @click="openReserve">预约</nut-button>
     </div>
     <nut-popup
@@ -447,10 +460,15 @@ const previewImg = (item) => {
           <nut-input v-model="roomDetail.fangdong" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="租客">
-          <nut-input v-model="roomDetail.zukeming" disabled></nut-input>
+          <nut-input v-model="zukeming" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="预约时间">
-          <nut-input v-model="reserveForm.yuyueshijian"></nut-input>
+          <div
+            @click="datePopupVisible = true"
+            style="width: 200px; height: 21px"
+          >
+            {{ reserveForm.yuyueshijian }}
+          </div>
         </nut-form-item>
         <nut-form-item label="租赁人数">
           <nut-input
@@ -459,10 +477,27 @@ const previewImg = (item) => {
           ></nut-input>
         </nut-form-item>
         <nut-form-item>
-          <nut-button type="primary" @click="closeReserve">取消</nut-button>
-          <nut-button type="primary" @click="saveReserve">保存</nut-button>
+          <div class="reserve-save">
+            <nut-button type="default" @click="closeReserve">取消</nut-button>
+            <nut-button
+              type="primary"
+              @click="saveReserve"
+              style="margin-left: 20px"
+              >保存</nut-button
+            >
+          </div>
         </nut-form-item>
       </nut-form>
+    </nut-popup>
+    <nut-popup v-model:visible="datePopupVisible" position="bottom">
+      <nut-date-picker
+        v-model="date"
+        :min-date="min"
+        :max-date="max"
+        :three-dimensional="false"
+        @confirm="confirm"
+        @cancel="datePopupVisible = false"
+      ></nut-date-picker>
     </nut-popup>
   </div>
 </template>
@@ -576,7 +611,7 @@ const previewImg = (item) => {
     }
   }
 }
-.reserve-btn {
+.save {
   position: fixed;
   bottom: 20px;
   left: 550px;
@@ -585,5 +620,9 @@ const previewImg = (item) => {
   width: 100px;
   height: 100px;
   margin-right: 10px;
+}
+.reserve-save {
+  display: flex;
+  justify-content: center;
 }
 </style>

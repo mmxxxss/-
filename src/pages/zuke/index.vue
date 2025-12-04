@@ -153,7 +153,6 @@ import {
   getDevelopList,
   getNoticeList,
   getWebsiteInfo,
-  keepSession,
 } from "../../api/zuke";
 import dayjs from "dayjs";
 import noticeDialog from "../../components/noticeDialog.vue";
@@ -181,10 +180,6 @@ const developList = ref({});
 const noticeList = ref([]);
 const websiteInfo = ref({});
 onMounted(async () => {
-  const session = await keepSession();
-  if (session.code == 0) {
-    Taro.setStorageSync("userid", session.data.id);
-  }
   const res = await getSwiperList();
   if (res.code == 0) {
     swiperList.value = res.data.list;

@@ -46,7 +46,7 @@
 <script setup>
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
-import { goZuKeLogin } from "../../api/zuke";
+import { goZuKeLogin, keepSession } from "../../api/zuke";
 import { goFangDongLogin } from "../../api/fangdong";
 import { goUserLogin } from "../../api/user";
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
@@ -72,6 +72,10 @@ const login = async () => {
   }
   if (res.code == 0) {
     Taro.setStorageSync("token", res.token);
+    const session = await keepSession();
+    if (session.code == 0) {
+      Taro.setStorageSync("userinfo", session.data);
+    }
     Taro.showToast({
       title: "登录成功",
       icon: "none",
