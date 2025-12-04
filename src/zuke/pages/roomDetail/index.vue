@@ -8,6 +8,7 @@ import {
   getCommentList,
   delComment,
   sendComment,
+  reserveRoom,
 } from "../../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
@@ -147,6 +148,35 @@ const sendCommentFn = async () => {
     getRoomDetailData();
     getCommentListData();
   }
+};
+const isShowReserve = ref(false);
+const openReserve = () => {
+  isShowReserve.value = true;
+};
+const closeReserve = () => {
+  isShowReserve.value = false;
+};
+const reserveForm = ref({
+  yuyueshijian: "",
+  zulinrenshu: "",
+});
+// 保存预约
+const saveReserve = async () => {
+  let params = {
+    ...roomDetail.value,
+    ...reserveForm.value,
+  };
+  const res = await reserveRoom(params);
+  Taro.showToast({
+    title: "预约成功",
+    icon: "none",
+  });
+  closeReserve();
+};
+const previewImg = (item) => {
+  Taro.previewImage({
+    urls: ["http://localhost:8080/zufangguanli/" + item],
+  });
 };
 </script>
 <template>
@@ -315,7 +345,7 @@ const sendCommentFn = async () => {
       </div>
     </div>
     <div class="reserve-btn">
-      <nut-button color="#b13a3d">预约</nut-button>
+      <nut-button color="#b13a3d" @click="openReserve">预约</nut-button>
     </div>
     <nut-popup
       v-model:visible="isShowComment"
@@ -374,6 +404,65 @@ const sendCommentFn = async () => {
         >
         <nut-textarea v-model="commentVal" placeholder="请输入评论" />
       </div>
+    </nut-popup>
+    <nut-popup
+      v-model:visible="isShowReserve"
+      :style="{ height: '500px' }"
+      position="bottom"
+    >
+      <nut-form>
+        <nut-form-item label="房屋名称">
+          <nut-input v-model="roomDetail.fangwumingcheng" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="房屋图片">
+          <img
+            v-for="(item, index) in roomDetail.fangwutupian?.split(',') || []"
+            :key="index"
+            :src="'http://localhost:8080/zufangguanli/' + item"
+            alt=""
+            class="reverse-img"
+            @click="previewImg(item)"
+          />
+        </nut-form-item>
+        <nut-form-item label="房屋面积">
+          <nut-input v-model="roomDetail.fangwumianji" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="房屋地址">
+          <nut-input v-model="roomDetail.fangwudizhi" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁价格">
+          <nut-input v-model="roomDetail.zulinjiage" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="户型">
+          <img
+            v-for="(item, index) in roomDetail.huxing?.split(',') || []"
+            :key="index"
+            :src="'http://localhost:8080/zufangguanli/' + item"
+            alt=""
+            class="reverse-img"
+            @click="previewImg(item)"
+          />
+        </nut-form-item>
+        <nut-form-item label="房东">
+          <nut-input v-model="roomDetail.fangdong" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租客">
+          <nut-input v-model="roomDetail.zukeming" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="预约时间">
+          <nut-input v-model="reserveForm.yuyueshijian"></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁人数">
+          <nut-input
+            v-model="reserveForm.zulinrenshu"
+            type="number"
+          ></nut-input>
+        </nut-form-item>
+        <nut-form-item>
+          <nut-button type="primary" @click="closeReserve">取消</nut-button>
+          <nut-button type="primary" @click="saveReserve">保存</nut-button>
+        </nut-form-item>
+      </nut-form>
     </nut-popup>
   </div>
 </template>
@@ -491,5 +580,10 @@ const sendCommentFn = async () => {
   position: fixed;
   bottom: 20px;
   left: 550px;
+}
+.reverse-img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
 }
 </style>

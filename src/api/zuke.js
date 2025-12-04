@@ -78,3 +78,7 @@ export const delComment = (data) => {
 export const sendComment = (data) => {
     return service(`/discussfangyuanxinxi/add`, data, "post")
 }
+// 预约看房
+export const reserveRoom = (data) => {
+    return service(`/yuyuekanfang/save`, data, "post")
+}
