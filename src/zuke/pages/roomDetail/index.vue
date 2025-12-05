@@ -15,8 +15,9 @@ import Taro from "@tarojs/taro";
 import dayjs from "dayjs";
 // 组件参数
 const roomDetail = ref({});
-const userid = Taro.getStorageSync("userinfo")?.id;
-const zukeming = Taro.getStorageSync("userinfo")?.zukeming;
+const userinfo = Taro.getStorageSync("userinfo");
+const userid = userinfo?.id;
+const zukeming = userinfo?.zukeming;
 // 轮播图列表
 const swiperList = ref([]);
 // 获取房源详情
@@ -164,17 +165,40 @@ const reserveForm = ref({
 });
 // 保存预约
 const saveReserve = async () => {
+  if (roomDetail.value.zulinrenshu < Number(reserveForm.value.zulinrenshu)) {
+    Taro.showToast({
+      title: "预约人数不足",
+      icon: "none",
+    });
+    return;
+  }
   let params = {
-    ...roomDetail.value,
-    ...reserveForm.value,
+    fangdong: roomDetail.value.fangdong,
+    fangdongxingming: roomDetail.value.fangdongxingming,
+    fangwudizhi: roomDetail.value.fangwudizhi,
+    fangwumianji: roomDetail.value.fangwumianji,
+    fangwumingcheng: roomDetail.value.fangwumingcheng,
+    fangwutupian: roomDetail.value.fangwutupian,
+    huxing: roomDetail.value.huxing,
+    shhf: roomDetail.value.shhf,
+    xingming: userinfo.xingming,
+    yuyueshijian: reserveForm.value.yuyueshijian,
+    zulinrenshu: reserveForm.value.zulinrenshu,
+    zukeming: zukeming,
+    zulinjiage: roomDetail.value.zulinjiage,
   };
   const res = await reserveRoom(params);
   if (res.code == 0) {
-    Taro.showToast({
-      title: "预约成功",
-      icon: "none",
-    });
-    closeReserve();
+    roomDetail.value.zulinrenshu -= Number(reserveForm.value.zulinrenshu);
+    const res1 = await updateCollect(roomDetail.value);
+    if (res1.code == 0) {
+      Taro.showToast({
+        title: "预约成功",
+        icon: "none",
+      });
+      getRoomDetailData();
+      closeReserve();
+    }
   }
 };
 const datePopupVisible = ref(false);
@@ -183,7 +207,9 @@ const max = new Date(2026, 10, 1);
 const date = new Date();
 const confirm = ({ selectedValue }) => {
   datePopupVisible.value = false;
-  reserveForm.value.yuyueshijian = dayjs(selectedValue).format("YYYY-MM-DD");
+  reserveForm.value.yuyueshijian = dayjs(selectedValue).format(
+    "YYYY-MM-DD hh:mm:ss"
+  );
 };
 const previewImg = (item) => {
   Taro.previewImage({
