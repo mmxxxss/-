@@ -86,3 +86,7 @@ export const reserveRoom = (data) => {
 export const getMessageList = (data) => {
     return service(`/messages/list`, data, "get")
 }
+// 发表留言
+export const sendMessage = (data) => {
+    return service(`/messages/add`, data, "post")
+}

@@ -1,14 +1,18 @@
 <script setup>
-import { getMessageList } from "../../api/zuke";
+import { getMessageList, sendMessage } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import publishDialog from "../../components/publishDialog.vue";
 // 组件参数
 const messageList = ref([]);
+const userinfo = Taro.getStorageSync("userinfo");
 // 组件方法
 const getMessageListData = async () => {
   let param = {
     page: 1,
-    limit: 10,
+    limit: 20,
+    sort: "addtime",
+    order: "desc",
   };
   const res = await getMessageList(param);
   if (res.code == 0) {
@@ -16,10 +20,32 @@ const getMessageListData = async () => {
   }
 };
 getMessageListData();
+const isShowSendComment = ref(false);
+const sendCommentFn = async (val) => {
+  let params = {
+    avatarurl: userinfo.touxiang,
+    content: val,
+    userid: userinfo.id.toString(),
+    username: userinfo.zukeming,
+  };
+  const res = await sendMessage(params);
+  if (res.code == 0) {
+    Taro.showToast({
+      title: "发表成功",
+      icon: "none",
+    });
+    isShowSendComment.value = false;
+    getMessageListData();
+  }
+};
 </script>
 <template>
   <div class="container">
-    <nut-button type="primary" class="publish-btn" size="small"
+    <nut-button
+      type="primary"
+      class="publish-btn"
+      size="small"
+      @click="isShowSendComment = true"
       >发表</nut-button
     >
     <div v-for="(item, index) in messageList" :key="index" class="item">
@@ -36,6 +62,10 @@ getMessageListData();
       </div>
     </div>
   </div>
+  <publishDialog
+    v-model:isShowSendComment="isShowSendComment"
+    @sendComment="sendCommentFn"
+  />
 </template>
 <style lang="scss">
 .container {
@@ -54,6 +84,7 @@ getMessageListData();
     width: 100px;
     height: 100px;
     border-radius: 10px;
+    border: 1px solid #dfdfdf;
   }
 }
 .content-container {
