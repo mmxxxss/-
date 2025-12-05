@@ -82,3 +82,7 @@ export const sendComment = (data) => {
 export const reserveRoom = (data) => {
     return service(`/yuyuekanfang/save`, data, "post")
 }
+// 留言板
+export const getMessageList = (data) => {
+    return service(`/messages/list`, data, "get")
+}

@@ -1,6 +1,6 @@
 <script setup>
 import Taro from "@tarojs/taro";
-import { getRoomList } from "../../../api/zuke";
+import { getRoomList } from "../../api/zuke";
 import { ref } from "vue";
 // 组件参数
 const roomList = ref([]);
@@ -17,7 +17,7 @@ const getRoomListData = async () => {
 };
 const openRoomDetail = (item) => {
   Taro.navigateTo({
-    url: "/zuke/pages/roomDetail/index?id=" + item.id,
+    url: "/pages/roomDetail/index?id=" + item.id,
   });
 };
 getRoomListData();

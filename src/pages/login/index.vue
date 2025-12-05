@@ -47,8 +47,6 @@
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
 import { goZuKeLogin, keepSession } from "../../api/zuke";
-import { goFangDongLogin } from "../../api/fangdong";
-import { goUserLogin } from "../../api/user";
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
 const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
 const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
@@ -65,10 +63,6 @@ const login = async () => {
   let res;
   if (role.value == "zuke") {
     res = await goZuKeLogin(form.value);
-  } else if (role.value == "fangdong") {
-    res = await goFangDongLogin(form.value);
-  } else {
-    res = await goUserLogin(form.value);
   }
   if (res.code == 0) {
     Taro.setStorageSync("token", res.token);
@@ -83,7 +77,7 @@ const login = async () => {
     });
     setTimeout(() => {
       Taro.reLaunch({
-        url: "/pages/" + role.value + "/index",
+        url: "/pages/zuke/index",
       });
     }, 1000);
   } else {

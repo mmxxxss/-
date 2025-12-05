@@ -9,7 +9,7 @@ import {
   delComment,
   sendComment,
   reserveRoom,
-} from "../../../api/zuke";
+} from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import dayjs from "dayjs";
@@ -249,11 +249,11 @@ const previewImg = (item) => {
       <h1>{{ roomDetail.fangyuanbianhao }}</h1>
       <div v-if="!isCollect" class="collect" @click="addCollectData">
         <span>收藏</span
-        ><image src="../../../assets/cancelLike.png" alt="" class="img" />
+        ><image src="../../assets/cancelLike.png" alt="" class="img" />
       </div>
       <div v-else class="collect" @click="delCollectData">
         <span>取消收藏</span
-        ><image src="../../../assets/like.png" alt="" class="img" />
+        ><image src="../../assets/like.png" alt="" class="img" />
       </div>
     </div>
     <div class="content">

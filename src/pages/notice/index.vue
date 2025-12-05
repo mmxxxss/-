@@ -21,8 +21,8 @@
 </template>
 <script setup>
 import dayjs from "dayjs";
-import noticeDialog from "../../../components/noticeDialog.vue";
-import { getNoticeList } from "../../../api/zuke";
+import noticeDialog from "../../components/noticeDialog.vue";
+import { getNoticeList } from "../../api/zuke";
 import { ref } from "vue";
 // 组件参数
 const noticeList = ref([]);

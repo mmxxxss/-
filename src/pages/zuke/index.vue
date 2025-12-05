@@ -212,27 +212,27 @@ onMounted(async () => {
 });
 const toNotice = () => {
   Taro.navigateTo({
-    url: "/zuke/pages/notice/index",
+    url: "/pages/notice/index",
   });
 };
 const toConsultation = () => {
   Taro.navigateTo({
-    url: "/zuke/pages/consultation/index",
+    url: "/pages/consultation/index",
   });
 };
 const toRoom = () => {
   Taro.navigateTo({
-    url: "/zuke/pages/room/index",
+    url: "/pages/room/index",
   });
 };
 const toRoomDetail = (id) => {
   Taro.navigateTo({
-    url: "/zuke/pages/roomDetail/index?id=" + id,
+    url: "/pages/roomDetail/index?id=" + id,
   });
 };
 const toMessageBoard = () => {
   Taro.navigateTo({
-    url: "/zuke/pages/messageBoard/index",
+    url: "/pages/messageBoard/index",
   });
 };
 </script>

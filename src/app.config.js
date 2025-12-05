@@ -3,22 +3,12 @@ export default {
     'pages/zuke/index',
     'pages/login/index',
     'pages/register/index',
-    'pages/fangdong/index',
-    'pages/users/index',
-  ],
-  subPackages: [
-    {
-      root: 'zuke',
-      name: 'zuke',
-      pages: [
-        'pages/consultation/index',
-        'pages/consultationDetail/index',
-        'pages/messageBoard/index',
-        'pages/notice/index',
-        'pages/room/index',
-        'pages/roomDetail/index',
-      ],
-    }
+    'pages/consultation/index',
+    'pages/consultationDetail/index',
+    'pages/messageBoard/index',
+    'pages/notice/index',
+    'pages/room/index',
+    'pages/roomDetail/index',
   ],
   window: {
     backgroundTextStyle: 'light',
