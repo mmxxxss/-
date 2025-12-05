@@ -186,7 +186,7 @@ const saveReserve = async () => {
     xingming: userinfo.xingming,
     yuyueshijian: reserveForm.value.yuyueshijian,
     zulinrenshu: reserveForm.value.zulinrenshu,
-    zukeming: zukeming,
+    zukeming: userinfo.zukeming,
     zulinjiage: roomDetail.value.zulinjiage,
   };
   const res = await reserveRoom(params);
@@ -205,13 +205,15 @@ const saveReserve = async () => {
 };
 const datePopupVisible = ref(false);
 const min = new Date();
-const max = new Date(2026, 10, 1);
+const max = new Date(2026, 10, 1, 23, 59);
 const date = new Date();
 const confirm = ({ selectedValue }) => {
   datePopupVisible.value = false;
-  reserveForm.value.yuyueshijian = dayjs(selectedValue).format(
-    "YYYY-MM-DD hh:mm:ss"
-  );
+  let time = "";
+  for (let item in selectedValue) {
+    time += selectedValue[item];
+  }
+  reserveForm.value.yuyueshijian = dayjs(time).format("YYYY-MM-DD hh:mm:ss");
 };
 const previewImg = (item) => {
   Taro.previewImage({
@@ -488,7 +490,7 @@ const previewImg = (item) => {
           <nut-input v-model="roomDetail.fangdong" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="租客">
-          <nut-input v-model="zukeming" disabled></nut-input>
+          <nut-input v-model="userinfo.zukeming" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="预约时间">
           <div
@@ -522,6 +524,7 @@ const previewImg = (item) => {
         v-model="date"
         :min-date="min"
         :max-date="max"
+        type="datetime"
         :three-dimensional="false"
         @confirm="confirm"
         @cancel="datePopupVisible = false"
