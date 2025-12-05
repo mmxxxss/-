@@ -10,6 +10,7 @@ import {
   sendComment,
   reserveRoom,
 } from "../../api/zuke";
+import publishDialog from "../../components/publishDialog.vue";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import dayjs from "dayjs";
@@ -127,15 +128,14 @@ const delCommentFn = async (item) => {
   }
 };
 // 发表评论
-const commentVal = ref("");
 const isShowSendComment = ref(false);
 const openSendComment = () => {
   isShowSendComment.value = true;
 };
-const sendCommentFn = async () => {
+const sendCommentFn = async (val) => {
   let params = {
     avatarurl: userinfo.touxiang,
-    content: commentVal.value,
+    content: val,
     refid: Taro.getCurrentInstance().router?.params?.id,
     userid: userinfo.id.toString(),
     nickname: userinfo.zukeming,
@@ -146,7 +146,6 @@ const sendCommentFn = async () => {
       title: "发表成功",
       icon: "none",
     });
-    commentVal.value = "";
     isShowSendComment.value = false;
     roomDetail.value.discussNumber += 1;
     await updateCollect(roomDetail.value);
@@ -433,22 +432,6 @@ const previewImg = (item) => {
       </div>
     </nut-popup>
     <nut-popup
-      v-model:visible="isShowSendComment"
-      :style="{ height: '400px' }"
-      position="bottom"
-    >
-      <div style="display: flex; flex-direction: column; padding: 10px 20px">
-        <nut-button
-          type="primary"
-          @click="sendCommentFn"
-          size="mini"
-          style="align-self: flex-end"
-          >发表</nut-button
-        >
-        <nut-textarea v-model="commentVal" placeholder="请输入评论" />
-      </div>
-    </nut-popup>
-    <nut-popup
       v-model:visible="isShowReserve"
       :style="{ height: '500px' }"
       position="bottom"
@@ -530,6 +513,10 @@ const previewImg = (item) => {
         @cancel="datePopupVisible = false"
       ></nut-date-picker>
     </nut-popup>
+    <publishDialog
+      v-model:isShowSendComment="isShowSendComment"
+      @sendComment="sendCommentFn"
+    />
   </div>
 </template>
 <style lang="scss">

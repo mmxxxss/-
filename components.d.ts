@@ -21,5 +21,6 @@ declare module 'vue' {
     NutSwiperItem: typeof import('@nutui/nutui-taro')['SwiperItem']
     NutTextarea: typeof import('@nutui/nutui-taro')['Textarea']
     NutUploader: typeof import('@nutui/nutui-taro')['Uploader']
+    PublishDialog: typeof import('./src/components/publishDialog.vue')['default']
   }
 }
