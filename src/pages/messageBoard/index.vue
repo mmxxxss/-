@@ -85,10 +85,12 @@ const sendCommentFn = async (val) => {
     height: 100px;
     border-radius: 10px;
     border: 1px solid #dfdfdf;
+    flex-shrink: 0;
   }
 }
 .content-container {
   flex: 1;
+  flex-grow: 0;
   margin-left: 20px;
   .username {
     font-size: 36px;
@@ -96,6 +98,9 @@ const sendCommentFn = async (val) => {
   }
   .content {
     font-size: 28px;
+    width: 560px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
   .reply {
     font-size: 32px;
