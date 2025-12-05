@@ -32,11 +32,12 @@ getRoomDetailData();
 const isCollect = ref(false);
 const collectInfo = ref({});
 const getIsCollectData = async () => {
+  let id = Taro.getCurrentInstance().router?.params?.id;
   let param = {
     page: 1,
     limit: 1,
     type: 1,
-    refid: roomDetail.value.id,
+    refid: id,
     tablename: "fangyuanxinxi",
     userid: userinfo.id.toString(),
   };
