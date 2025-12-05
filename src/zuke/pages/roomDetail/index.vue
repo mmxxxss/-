@@ -16,8 +16,6 @@ import dayjs from "dayjs";
 // 组件参数
 const roomDetail = ref({});
 const userinfo = Taro.getStorageSync("userinfo");
-const userid = userinfo?.id;
-const zukeming = userinfo?.zukeming;
 // 轮播图列表
 const swiperList = ref([]);
 // 获取房源详情
@@ -34,31 +32,34 @@ getRoomDetailData();
 const isCollect = ref(false);
 const collectInfo = ref({});
 const getIsCollectData = async () => {
-  let id = Taro.getCurrentInstance().router?.params?.id;
   let param = {
     page: 1,
     limit: 1,
     type: 1,
-    refid: id,
+    refid: roomDetail.value.id,
     tablename: "fangyuanxinxi",
-    userid: userid,
+    userid: userinfo.id.toString(),
   };
   const res = await getIsCollect(param);
   if (res.code == 0) {
-    isCollect.value = res.data.list.length > 0;
-    collectInfo.value = res.data.list[0];
+    if (res.data.list.length > 0) {
+      isCollect.value = true;
+      collectInfo.value = res.data.list[0];
+    } else {
+      isCollect.value = false;
+      collectInfo.value = {};
+    }
   }
 };
 getIsCollectData();
 // 收藏房源
 const addCollectData = async () => {
-  let id = Taro.getCurrentInstance().router?.params?.id;
   let param = {
-    name: roomDetail.value.fangwumingcheng,
+    name: roomDetail.value.fangyuanbianhao,
     picture: roomDetail.value.fangwutupian.split(",")[0],
-    refId: id,
-    tableName: "fangyuanxinxi",
-    userid: userid,
+    refid: roomDetail.value.id,
+    tablename: "fangyuanxinxi",
+    userid: userinfo.id.toString(),
     type: 1,
   };
   const res = await addCollect(param);
@@ -132,11 +133,11 @@ const openSendComment = () => {
 };
 const sendCommentFn = async () => {
   let params = {
-    avatar: "",
+    avatarurl: userinfo.touxiang,
     content: commentVal.value,
     refid: Taro.getCurrentInstance().router?.params?.id,
-    userid: userid,
-    nickname: Taro.getStorageSync("nickname"),
+    userid: userinfo.id.toString(),
+    nickname: userinfo.zukeming,
   };
   const res = await sendComment(params);
   if (res.code == 0) {
@@ -418,7 +419,7 @@ const previewImg = (item) => {
             </div>
             <nut-button
               type="primary"
-              v-if="item.userid == userid"
+              v-if="item.userid == userinfo.id"
               size="mini"
               class="comment-item-btn"
               @click="delCommentFn(item)"
