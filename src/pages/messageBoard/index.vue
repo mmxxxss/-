@@ -70,6 +70,9 @@ const sendCommentFn = async (val) => {
 <style lang="scss">
 .container {
   padding: 30px;
+  height: 100vh;
+  background-color: #f7f7f7;
+  min-height: 100vh;
 }
 .publish-btn {
   position: fixed;

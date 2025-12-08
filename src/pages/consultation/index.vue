@@ -45,7 +45,8 @@ getConsultationListData();
 </template>
 <style lang="scss">
 .container {
-  padding-bottom: 20px;
+  padding: 20px 0;
+  background-color: #f7f7f7;
 }
 .item {
   width: 90%;

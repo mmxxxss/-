@@ -50,7 +50,9 @@ getRoomListData();
 </template>
 <style lang="scss">
 .container {
-  padding-bottom: 20px;
+  padding: 20px 0;
+  background-color: #f7f7f7;
+  min-height: 100vh;
 }
 .item {
   width: 90%;
@@ -59,6 +61,7 @@ getRoomListData();
   border: 1px solid #ccc;
   margin: 20px auto;
   border-radius: 20px;
+  background-color: white;
   .img {
     align-self: center;
     margin-left: 20px;

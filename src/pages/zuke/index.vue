@@ -3,7 +3,6 @@
     class="container"
     :style="{
       paddingTop: statusBarHeight + topHeight + 'px',
-      paddingBottom: '20px',
     }"
   >
     <div
@@ -238,13 +237,15 @@ const toMessageBoard = () => {
 </script>
 <style lang="scss">
 .container {
+  padding-bottom: 110px;
+  background-color: #f7f7f7;
   .title {
     width: 100%;
     font-size: 32px;
     font-weight: 400;
     text-align: center;
     position: fixed;
-    background: white;
+    background: #f7f7f7;
     left: 0;
     z-index: 999;
   }
@@ -303,7 +304,7 @@ const toMessageBoard = () => {
         margin: 0px 10px 10px 10px;
         display: flex;
         flex-direction: column;
-        background-color: #f5f5f5;
+        background-color: white;
         border-radius: 20px;
         padding: 10px;
         box-sizing: border-box;

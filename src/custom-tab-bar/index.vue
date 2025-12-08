@@ -66,7 +66,7 @@ onMounted(() => {
   // 延迟执行以确保页面完全加载
   setTimeout(() => {
     setTabBarIndex();
-  }, 100);
+  }, 0);
 });
 
 const switchTab = (index) => {

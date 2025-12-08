@@ -521,7 +521,7 @@ const previewImg = (item) => {
 </template>
 <style lang="scss">
 .container {
-  background-color: #f0efef;
+  background-color: #f7f7f7;
   padding-bottom: 20px;
 }
 .square-swiper {

@@ -57,16 +57,18 @@ getNoticeListData();
 <style lang="scss">
 .content {
   padding-bottom: 20px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
   .list {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
     padding: 20px;
-    background-color: rgb(177, 58, 61);
+    background-color: white;
     .title {
       font-size: 30px;
       font-weight: 400;
-      color: white;
+      color: black;
     }
     .desc {
       overflow: hidden;
@@ -75,7 +77,7 @@ getNoticeListData();
       -webkit-box-orient: vertical;
       font-size: 24px;
       font-weight: 300;
-      color: #fff;
+      color: #666;
     }
     .date {
       font-size: 24px;
