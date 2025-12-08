@@ -10,6 +10,7 @@ export default {
     'pages/notice/index',
     'pages/room/index',
     'pages/roomDetail/index',
+    'pages/userinfo/index',
   ],
   tabBar: {
     custom: true,

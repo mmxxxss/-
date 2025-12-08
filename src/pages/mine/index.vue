@@ -16,13 +16,14 @@
     >
       我的
     </div>
-    <div class="userinfo">
+    <div class="userinfo" @click="toUserInfo">
       <img
         :src="'http://localhost:8080' + userInfo.touxiang"
         alt=""
         class="avatar"
       />
       <div class="username">Hi,{{ userInfo.zukeming }}</div>
+      <image src="../../assets/right.png" alt="" class="right" />
     </div>
   </div>
 </template>
@@ -37,6 +38,12 @@ const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
 const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
 const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const userInfo = Taro.getStorageSync("userinfo");
+
+const toUserInfo = () => {
+  Taro.navigateTo({
+    url: "/pages/userinfo/index",
+  });
+};
 </script>
 <style lang="scss">
 .container {
@@ -55,8 +62,7 @@ const userInfo = Taro.getStorageSync("userinfo");
     z-index: 999;
   }
   .userinfo {
-    margin-left: 30px;
-    background: white;
+    margin-left: 50px;
     display: flex;
     .avatar {
       border: 2px solid rgb(177, 58, 61);
@@ -69,6 +75,11 @@ const userInfo = Taro.getStorageSync("userinfo");
       font-size: 40px;
       font-weight: 400;
       text-align: center;
+    }
+    .right {
+      width: 30px;
+      height: 35px;
+      margin: 30px 0 0 200px;
     }
   }
 }
