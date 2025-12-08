@@ -55,6 +55,7 @@ getConsultationListData();
   border: 1px solid #ccc;
   margin: 20px auto;
   border-radius: 20px;
+  background-color: white;
   .img {
     align-self: center;
     margin-left: 20px;
