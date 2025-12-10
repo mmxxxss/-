@@ -28,8 +28,11 @@ const service = (path, params = {}, method = "get") => {
                                 }
                             }
                         })
+                        reject(response)
+                        return
                     }
                     Taro.removeStorageSync('token')
+                    Taro.removeStorageSync('userinfo')
                     Taro.showModal({
                         title: '提示',
                         content: response.data.msg,

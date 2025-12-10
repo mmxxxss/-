@@ -28,6 +28,31 @@
       </div>
       <image src="../../assets/right.png" alt="" class="right" />
     </div>
+    <div class="function">
+      <div class="item">
+        <image src="../../assets/xiugaimima.png" alt="" class="icon" />
+        <span class="text">修改密码</span>
+      </div>
+      <div class="item">
+        <image src="../../assets/yuyuekanfnag.png" alt="" class="icon" />
+        <span class="text">预约看房</span>
+      </div>
+      <div class="item">
+        <image src="../../assets/zulinhetong.png" alt="" class="icon" />
+        <span class="text">租赁合同</span>
+      </div>
+      <div class="item">
+        <image src="../../assets/fangwuzulin.png" alt="" class="icon" />
+        <span class="text">房屋租赁</span>
+      </div>
+      <div class="item">
+        <image src="../../assets/wodeshoucang.png" alt="" class="icon" />
+        <span class="text">我的收藏</span>
+      </div>
+    </div>
+    <nut-button type="primary" @click="logout" class="logout-btn"
+      >退出登录</nut-button
+    >
   </div>
 </template>
 
@@ -83,6 +108,28 @@ const toUserInfo = () => {
     url: "/pages/userinfo/index",
   });
 };
+const logout = () => {
+  Taro.showModal({
+    title: "提示",
+    content: "确定退出登录吗？",
+    success: (res) => {
+      if (res.confirm) {
+        Taro.removeStorageSync("token");
+        Taro.removeStorageSync("userinfo");
+        Taro.showToast({
+          title: "退出登录成功",
+          icon: "none",
+          duration: 1000,
+        });
+        setTimeout(() => {
+          Taro.reLaunch({
+            url: "/pages/login/index",
+          });
+        }, 1000);
+      }
+    },
+  });
+};
 </script>
 <style lang="scss">
 .container {
@@ -130,6 +177,37 @@ const toUserInfo = () => {
       width: 30px;
       height: 35px;
     }
+  }
+  .function {
+    margin: 50px auto;
+    width: 92%;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .item {
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .icon {
+        width: 60px;
+        height: 60px;
+      }
+      .text {
+        color: #656565;
+        margin-top: 20px;
+        font-size: 28px;
+        font-weight: 400;
+      }
+    }
+  }
+  .logout-btn {
+    display: block;
+    width: 400px;
+    margin: 20px auto;
   }
 }
 </style>
