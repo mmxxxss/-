@@ -26,10 +26,10 @@
       <div class="username" v-else>
         Hi,请先<span class="login" @click="toLogin">登录</span>
       </div>
-      <image src="../../assets/right.png" alt="" class="right" />
+      <image src="../../assets/right.png" alt="" class="right" v-if="isLogin" />
     </div>
     <div class="function">
-      <div class="item">
+      <div class="item" @click="toUpdatePassWord">
         <image src="../../assets/xiugaimima.png" alt="" class="icon" />
         <span class="text">修改密码</span>
       </div>
@@ -84,6 +84,11 @@ const getUserInfo = async () => {
 const toLogin = () => {
   Taro.reLaunch({
     url: "/pages/login/index",
+  });
+};
+const toUpdatePassWord = () => {
+  Taro.navigateTo({
+    url: "/pages/updatePassWord/index",
   });
 };
 // 页面加载时获取用户信息

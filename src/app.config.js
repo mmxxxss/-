@@ -11,6 +11,8 @@ export default {
     'pages/room/index',
     'pages/roomDetail/index',
     'pages/userinfo/index',
+    'pages/updatePassWord/index',
+
   ],
   tabBar: {
     custom: true,
