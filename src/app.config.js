@@ -14,6 +14,7 @@ export default {
     'pages/updatePassWord/index',
     'pages/yuyuekanfang/index',
     'pages/yuyuekanfangdetail/index',
+    'pages/myCollect/index',
   ],
   tabBar: {
     custom: true,

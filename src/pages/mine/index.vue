@@ -45,7 +45,7 @@
         <image src="../../assets/fangwuzulin.png" alt="" class="icon" />
         <span class="text">房屋租赁</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toMyCollect">
         <image src="../../assets/wodeshoucang.png" alt="" class="icon" />
         <span class="text">我的收藏</span>
       </div>
@@ -94,6 +94,11 @@ const toUpdatePassWord = () => {
 const toYuYueKanFang = () => {
   Taro.navigateTo({
     url: "/pages/yuyuekanfang/index",
+  });
+};
+const toMyCollect = () => {
+  Taro.navigateTo({
+    url: "/pages/myCollect/index",
   });
 };
 // 页面加载时获取用户信息

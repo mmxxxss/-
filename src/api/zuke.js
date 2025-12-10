@@ -102,3 +102,7 @@ export const getReserveList = () => {
 export const getReserveDetail = (id) => {
     return service(`/yuyuekanfang/detail/${id}`, {}, "get")
 }
+//获取我的收藏页面数据
+export const getMyCollectList = () => {
+    return service(`/storeup/page?page=1&limit=20&sort=id&order=desc&type=1`, {}, "get")
+}
