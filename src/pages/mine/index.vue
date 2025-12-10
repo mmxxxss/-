@@ -30,7 +30,7 @@
 
 <script setup>
 import Taro from "@tarojs/taro";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { keepSession } from "../../api/zuke";
 // 胶囊信息
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
@@ -40,6 +40,7 @@ const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
 const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
 const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const userinfo = ref({});
+
 const getUserInfo = async () => {
   let res = await keepSession();
   if (res.code == 0) {
@@ -47,7 +48,24 @@ const getUserInfo = async () => {
     Taro.setStorageSync("userinfo", res.data);
   }
 };
-getUserInfo();
+
+// 页面加载时获取用户信息
+onMounted(() => {
+  getUserInfo();
+});
+
+// 监听页面显示事件，当从其他页面返回时刷新数据
+Taro.useDidShow(() => {
+  // 检查是否有用户信息更新的标识
+  const userInfoUpdated = Taro.getStorageSync("userInfoUpdated");
+  if (userInfoUpdated) {
+    // 清除标识
+    Taro.removeStorageSync("userInfoUpdated");
+    // 刷新用户信息
+    getUserInfo();
+  }
+});
+
 const toUserInfo = () => {
   Taro.navigateTo({
     url: "/pages/userinfo/index",
@@ -86,8 +104,12 @@ const toUserInfo = () => {
       margin: 20px;
       font-size: 40px;
       font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .right {
+      flex-shrink: 0;
       margin-top: 30px;
       width: 30px;
       height: 35px;

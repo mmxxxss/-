@@ -69,7 +69,16 @@ const save = async () => {
   await updateZuKeInfo(form.value);
   Taro.showToast({
     title: "保存成功",
+    icon: "none",
   });
+
+  // 设置标识，表示用户信息已更新
+  Taro.setStorageSync("userInfoUpdated", true);
+
+  // 返回上一页
+  setTimeout(() => {
+    Taro.navigateBack();
+  }, 1000);
 };
 </script>
 <style lang="scss">
