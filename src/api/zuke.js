@@ -90,3 +90,7 @@ export const getMessageList = (data) => {
 export const sendMessage = (data) => {
     return service(`/messages/add`, data, "post")
 }
+// 更新租客信息
+export const updateZuKeInfo = (data) => {
+    return service(`/zuke/update`, data, "post")
+}

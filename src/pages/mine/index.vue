@@ -18,11 +18,11 @@
     </div>
     <div class="userinfo" @click="toUserInfo">
       <img
-        :src="'http://localhost:8080' + userInfo.touxiang"
+        :src="'http://localhost:8080/zufangguanli/' + userinfo?.touxiang"
         alt=""
         class="avatar"
       />
-      <div class="username">Hi,{{ userInfo.zukeming }}</div>
+      <div class="username">Hi,{{ userinfo?.zukeming }}</div>
       <image src="../../assets/right.png" alt="" class="right" />
     </div>
   </div>
@@ -30,6 +30,8 @@
 
 <script setup>
 import Taro from "@tarojs/taro";
+import { ref } from "vue";
+import { keepSession } from "../../api/zuke";
 // 胶囊信息
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
 const systemInfo = wx.getSystemInfoSync(); // 获取设备信息
@@ -37,8 +39,15 @@ const statusBarHeight = systemInfo.statusBarHeight; // 状态栏高度
 const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
 const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
 const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
-const userInfo = Taro.getStorageSync("userinfo");
-
+const userinfo = ref({});
+const getUserInfo = async () => {
+  let res = await keepSession();
+  if (res.code == 0) {
+    userinfo.value = res.data;
+    Taro.setStorageSync("userinfo", res.data);
+  }
+};
+getUserInfo();
 const toUserInfo = () => {
   Taro.navigateTo({
     url: "/pages/userinfo/index",
@@ -64,22 +73,24 @@ const toUserInfo = () => {
   .userinfo {
     margin-left: 50px;
     display: flex;
+    width: 650px;
     .avatar {
       border: 2px solid rgb(177, 58, 61);
       width: 100px;
       height: 100px;
       border-radius: 50%;
+      flex-shrink: 0;
     }
     .username {
+      flex: 1;
       margin: 20px;
       font-size: 40px;
       font-weight: 400;
-      text-align: center;
     }
     .right {
+      margin-top: 30px;
       width: 30px;
       height: 35px;
-      margin: 30px 0 0 200px;
     }
   }
 }
