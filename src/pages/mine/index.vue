@@ -50,7 +50,7 @@
         <span class="text">我的收藏</span>
       </div>
     </div>
-    <nut-button type="primary" @click="logout" class="logout-btn"
+    <nut-button type="primary" @click="logout" class="logout-btn" v-if="isLogin"
       >退出登录</nut-button
     >
   </div>
@@ -136,6 +136,7 @@ const logout = () => {
   background-color: #f7f7f7;
   width: 100%;
   padding-bottom: 110px;
+  box-sizing: border-box;
   min-height: 100vh;
   .title {
     width: 100%;
