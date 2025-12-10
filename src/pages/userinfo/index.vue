@@ -38,28 +38,38 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Taro from "@tarojs/taro";
-import { updateZuKeInfo } from "../../api/zuke";
-const userinfo = Taro.getStorageSync("userinfo");
+import { updateZuKeInfo, keepSession } from "../../api/zuke";
+const userinfo = ref({});
+const getUserInfo = async () => {
+  const res = await keepSession();
+  if (res.code === 0) {
+    userinfo.value = res.data;
+  }
+};
+onMounted(() => {
+  getUserInfo();
+});
 const defaultFileList = ref([
   {
-    url: "http://localhost:8080/zufangguanli/" + userinfo.touxiang,
-    name: userinfo.touxiang,
+    url: "http://localhost:8080/zufangguanli/" + userinfo.value.touxiang,
+    name: userinfo.value.touxiang,
     status: "success",
     message: "上传成功",
     type: "image",
   },
 ]);
 const form = ref({
-  id: userinfo.id,
-  zukeming: userinfo.zukeming,
-  xingming: userinfo.xingming,
-  xingbie: userinfo.xingbie,
-  touxiang: userinfo.touxiang,
-  nianling: userinfo.nianling,
-  shoujihao: userinfo.shoujihao,
-  youxiang: userinfo.youxiang,
+  id: userinfo.value.id,
+  mima: userinfo.value.mima,
+  zukeming: userinfo.value.zukeming,
+  xingming: userinfo.value.xingming,
+  xingbie: userinfo.value.xingbie,
+  touxiang: userinfo.value.touxiang,
+  nianling: userinfo.value.nianling,
+  shoujihao: userinfo.value.shoujihao,
+  youxiang: userinfo.value.youxiang,
 });
 const handleSuccess = (res) => {
   let data = JSON.parse(res.data.data);
