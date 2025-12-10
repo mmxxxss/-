@@ -14,17 +14,35 @@ const service = (path, params = {}, method = "get") => {
             },
             success(response) {
                 if (response.data && response.data.code == 401) { // 401, token失效
-                    Taro.removeStorageSync('token')
-                    Taro.showToast({
-                        title: response.data.msg,
-                        icon: 'none',
-                        duration: 1000
-                    })
-                    setTimeout(() => {
-                        Taro.reLaunch({
-                            url: '/pages/login/index',
+                    if (!token) {
+                        Taro.showModal({
+                            title: '提示',
+                            content: '您好，您暂未登录，请先登录。',
+                            success: function (res) {
+                                if (res.confirm) {
+                                    Taro.reLaunch({
+                                        url: '/pages/login/index',
+                                    })
+                                } else if (res.cancel) {
+                                    console.log('用户点击取消')
+                                }
+                            }
                         })
-                    }, 1000);
+                    }
+                    Taro.removeStorageSync('token')
+                    Taro.showModal({
+                        title: '提示',
+                        content: response.data.msg,
+                        success: function (res) {
+                            if (res.confirm) {
+                                Taro.reLaunch({
+                                    url: '/pages/login/index',
+                                })
+                            } else if (res.cancel) {
+                                console.log('用户点击取消')
+                            }
+                        }
+                    })
                     reject(response)
                 }
                 else if (response.data && response.data.code == 0) {

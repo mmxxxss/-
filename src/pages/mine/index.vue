@@ -22,7 +22,10 @@
         alt=""
         class="avatar"
       />
-      <div class="username">Hi,{{ userinfo?.zukeming }}</div>
+      <div class="username" v-if="isLogin">Hi,{{ userinfo?.zukeming }}</div>
+      <div class="username" v-else>
+        Hi,请先<span class="login" @click="toLogin">登录</span>
+      </div>
       <image src="../../assets/right.png" alt="" class="right" />
     </div>
   </div>
@@ -40,15 +43,24 @@ const menuButtonStatusBarGap = menuButtonInfo.top - statusBarHeight;
 const menuButtonHeight = menuButtonInfo.height; // 胶囊高度
 const topHeight = menuButtonStatusBarGap * 2 + menuButtonHeight;
 const userinfo = ref({});
-
+const isLogin = ref(true);
 const getUserInfo = async () => {
+  const token = Taro.getStorageSync("token");
+  if (!token) {
+    isLogin.value = false;
+    return;
+  }
   let res = await keepSession();
   if (res.code == 0) {
     userinfo.value = res.data;
     Taro.setStorageSync("userinfo", res.data);
   }
 };
-
+const toLogin = () => {
+  Taro.reLaunch({
+    url: "/pages/login/index",
+  });
+};
 // 页面加载时获取用户信息
 onMounted(() => {
   getUserInfo();
@@ -100,6 +112,7 @@ const toUserInfo = () => {
       flex-shrink: 0;
     }
     .username {
+      display: flex;
       flex: 1;
       margin: 20px;
       font-size: 40px;
@@ -107,6 +120,9 @@ const toUserInfo = () => {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    .login {
+      color: rgb(177, 58, 61);
     }
     .right {
       flex-shrink: 0;

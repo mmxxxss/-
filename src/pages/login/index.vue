@@ -12,12 +12,7 @@
         >注册</span
       >
     </p>
-    <p class="desc change">请先选择您的身份吧！</p>
-    <nut-radio-group v-model="role" direction="horizontal">
-      <nut-radio label="zuke">我是租客</nut-radio>
-      <nut-radio label="fangdong">我是房东</nut-radio>
-      <nut-radio label="users">我是管理员</nut-radio>
-    </nut-radio-group>
+    <p class="desc change">请先登录吧！</p>
     <div class="user">
       <span v-if="form.username" class="desc">账号</span>
       <nut-input
