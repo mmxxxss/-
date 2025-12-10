@@ -33,7 +33,7 @@
         <image src="../../assets/xiugaimima.png" alt="" class="icon" />
         <span class="text">修改密码</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toYuYueKanFang">
         <image src="../../assets/yuyuekanfnag.png" alt="" class="icon" />
         <span class="text">预约看房</span>
       </div>
@@ -89,6 +89,11 @@ const toLogin = () => {
 const toUpdatePassWord = () => {
   Taro.navigateTo({
     url: "/pages/updatePassWord/index",
+  });
+};
+const toYuYueKanFang = () => {
+  Taro.navigateTo({
+    url: "/pages/yuyuekanfang/index",
   });
 };
 // 页面加载时获取用户信息
@@ -158,7 +163,7 @@ const logout = () => {
     display: flex;
     width: 650px;
     .avatar {
-      border: 2px solid rgb(177, 58, 61);
+      border: 2px solid white;
       width: 100px;
       height: 100px;
       border-radius: 50%;

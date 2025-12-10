@@ -94,3 +94,11 @@ export const sendMessage = (data) => {
 export const updateZuKeInfo = (data) => {
     return service(`/zuke/update`, data, "post")
 }
+// 获取预约信息
+export const getReserveList = () => {
+    return service(`/yuyuekanfang/page?page=1&limit=20`, {}, "get")
+}
+// 获取预约看房详情
+export const getReserveDetail = (id) => {
+    return service(`/yuyuekanfang/detail/${id}`, {}, "get")
+}

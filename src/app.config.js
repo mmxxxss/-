@@ -12,7 +12,8 @@ export default {
     'pages/roomDetail/index',
     'pages/userinfo/index',
     'pages/updatePassWord/index',
-
+    'pages/yuyuekanfang/index',
+    'pages/yuyuekanfangdetail/index',
   ],
   tabBar: {
     custom: true,
