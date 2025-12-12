@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <p class="desc">请先选择您的身份～</p>
-    <nut-radio-group v-model="role" direction="horizontal" @change="changeRole">
-      <nut-radio label="1">我是租客</nut-radio>
-      <nut-radio label="2">我是房东</nut-radio>
-    </nut-radio-group>
+    <p class="desc">请注册您的账号哦～</p>
     <nut-form ref="formRef" :model-value="form" :rules="rules">
       <nut-form-item label="账号名" prop="zukeming">
         <nut-input
@@ -47,11 +43,9 @@
       <nut-form-item label="头像" prop="touxiang">
         <nut-uploader
           v-model="form.touxiang"
-          url="http://服务地址"
+          url="http://localhost:8080/zufangguanli/file/upload"
           accept="image/*"
           maximum="1"
-          :auto-upload="false"
-          multiple
           :source-type="['album', 'camera']"
         >
         </nut-uploader>
@@ -89,7 +83,6 @@ import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import tool from "../../utils/tool";
 import { goZuKeRegister } from "../../api/zuke";
-const role = ref("1");
 const form = ref({
   zukeming: "",
   mima: "",
@@ -116,19 +109,6 @@ const rules = ref({
   youxiang: [{ validator: tool.isEmail, message: "请输入正确的邮箱" }],
 });
 const formRef = ref(null);
-const changeRole = () => {
-  form.value = {
-    zukeming: "",
-    mima: "",
-    mima2: "",
-    xingbie: "man",
-    xingming: "",
-    touxiang: "",
-    nianling: "",
-    shoujihao: "",
-    youxiang: "",
-  };
-};
 // 失去焦点校验
 const customBlurValidate = (prop) => {
   formRef.value?.validate(prop);
@@ -136,12 +116,7 @@ const customBlurValidate = (prop) => {
 const register = async () => {
   formRef.value?.validate().then(async ({ valid, errors }) => {
     if (valid) {
-      let res;
-      if (role.value == 1) {
-        res = await goZuKeRegister(form.value);
-      } else if (role.value == 2) {
-        res = await goFangDongRegister(form.value);
-      }
+      const res = await goZuKeRegister(form.value);
       if (res.code == 0) {
         Taro.showToast({
           title: "注册成功",
