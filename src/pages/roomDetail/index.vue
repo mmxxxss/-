@@ -215,11 +215,6 @@ const confirm = ({ selectedValue }) => {
   }
   reserveForm.value.yuyueshijian = dayjs(time).format("YYYY-MM-DD hh:mm:ss");
 };
-const previewImg = (src) => {
-  Taro.previewImage({
-    urls: [src],
-  });
-};
 </script>
 <template>
   <div class="container">
@@ -236,11 +231,7 @@ const previewImg = (src) => {
         :key="index"
         class="square-swiper-item"
       >
-        <img
-          :src="'http://localhost:8080/zufangguanli/' + item"
-          style="height: 100%; width: 100%"
-          @click="previewImg(item)"
-        />
+        <myImage :src="item" :style="{ height: '100%', width: '100%' }" />
       </nut-swiper-item>
     </nut-swiper>
     <div class="top">

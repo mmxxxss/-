@@ -28,14 +28,7 @@
         :key="index"
         style="height: 150px"
       >
-        <img
-          :src="'http://localhost:8080/zufangguanli/' + item.value"
-          class="swiper-img"
-          draggable="false"
-          @click="
-            previewImg('http://localhost:8080/zufangguanli/' + item.value)
-          "
-        />
+        <myImage :src="item.value" class="swiper-img" />
       </nut-swiper-item>
     </nut-swiper>
     <div class="menu-list">
@@ -225,11 +218,6 @@ const toRoomDetail = (id) => {
 const toMessageBoard = () => {
   Taro.navigateTo({
     url: "/pages/messageBoard/index",
-  });
-};
-const previewImg = (src) => {
-  Taro.previewImage({
-    urls: [src],
   });
 };
 </script>
