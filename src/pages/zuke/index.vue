@@ -28,11 +28,9 @@
         :key="index"
         style="height: 150px"
       >
-        <img
+        <myImage
           :src="'http://localhost:8080/zufangguanli/' + item.value"
-          alt=""
           class="swiper-img"
-          draggable="false"
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -155,6 +153,7 @@ import {
 } from "../../api/zuke";
 import dayjs from "dayjs";
 import noticeDialog from "../../components/noticeDialog.vue";
+import myImage from "../../components/myImage.vue";
 // 组件参数
 const noticeVisible = ref(false);
 const noticeParam = ref({});

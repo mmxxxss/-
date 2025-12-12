@@ -214,11 +214,6 @@ const confirm = ({ selectedValue }) => {
   }
   reserveForm.value.yuyueshijian = dayjs(time).format("YYYY-MM-DD hh:mm:ss");
 };
-const previewImg = (item) => {
-  Taro.previewImage({
-    urls: ["http://localhost:8080/zufangguanli/" + item],
-  });
-};
 </script>
 <template>
   <div class="container">
@@ -235,12 +230,9 @@ const previewImg = (item) => {
         :key="index"
         class="square-swiper-item"
       >
-        <img
+        <myImage
           :src="'http://localhost:8080/zufangguanli/' + item"
-          alt=""
           style="height: 100%; width: 100%"
-          draggable="false"
-          @click="previewImg(item)"
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -373,9 +365,8 @@ const previewImg = (item) => {
         :key="index"
         class="comment-item"
       >
-        <image
+        <myImage
           :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-          alt=""
           class="comment-item-avatar"
         />
         <div class="comment-item-right">
@@ -405,9 +396,8 @@ const previewImg = (item) => {
             :key="index"
             class="comment-item"
           >
-            <image
+            <myImage
               :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-              alt=""
               class="comment-item-avatar"
             />
             <div class="comment-item-right">
@@ -441,13 +431,11 @@ const previewImg = (item) => {
           <nut-input v-model="roomDetail.fangwumingcheng" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="房屋图片">
-          <img
+          <myImage
             v-for="(item, index) in roomDetail.fangwutupian?.split(',') || []"
             :key="index"
             :src="'http://localhost:8080/zufangguanli/' + item"
-            alt=""
             class="reverse-img"
-            @click="previewImg(item)"
           />
         </nut-form-item>
         <nut-form-item label="房屋面积">
@@ -460,13 +448,11 @@ const previewImg = (item) => {
           <nut-input v-model="roomDetail.zulinjiage" disabled></nut-input>
         </nut-form-item>
         <nut-form-item label="户型">
-          <img
+          <myImage
             v-for="(item, index) in roomDetail.huxing?.split(',') || []"
             :key="index"
             :src="'http://localhost:8080/zufangguanli/' + item"
-            alt=""
             class="reverse-img"
-            @click="previewImg(item)"
           />
         </nut-form-item>
         <nut-form-item label="房东">

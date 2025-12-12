@@ -2,6 +2,7 @@
 import { getMessageList, sendMessage } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import myImage from "../../components/myImage.vue";
 import publishDialog from "../../components/publishDialog.vue";
 // 组件参数
 const messageList = ref([]);
@@ -49,9 +50,8 @@ const sendCommentFn = async (val) => {
       >发表</nut-button
     >
     <div v-for="(item, index) in messageList" :key="index" class="item">
-      <img
+      <myImage
         :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-        alt=""
         class="avatar"
       />
       <div class="content-container">

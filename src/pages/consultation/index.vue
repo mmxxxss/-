@@ -2,6 +2,7 @@
 import { getConsultationList } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import myImage from "../../components/myImage.vue";
 // 组件参数
 const consultationList = ref([]);
 // 组件方法
@@ -31,9 +32,8 @@ getConsultationListData();
       class="item"
       @click="openConsultation(item)"
     >
-      <image
+      <myImage
         :src="'http://localhost:8080/zufangguanli/' + item.tupian.split(',')[0]"
-        alt=""
         class="img"
       />
       <div class="box">

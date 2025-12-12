@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    MyImage: typeof import('./src/components/myImage.vue')['default']
     NoticeDialog: typeof import('./src/components/noticeDialog.vue')['default']
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutDatePicker: typeof import('@nutui/nutui-taro')['DatePicker']

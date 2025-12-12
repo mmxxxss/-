@@ -6,9 +6,8 @@
       <div class="time">
         发布时间：{{ dayjs(props.param.addTime).format("YYYY-MM-DD") }}
       </div>
-      <img
+      <myImage
         :src="'http://localhost:8080/zufangguanli/' + props.param.picture"
-        alt=""
         class="image"
       />
       <div class="content">{{ props.param.content }}</div>
@@ -19,6 +18,7 @@
 
 <script setup>
 import dayjs from "dayjs";
+import myImage from "./myImage.vue";
 
 const props = defineProps({
   visible: {

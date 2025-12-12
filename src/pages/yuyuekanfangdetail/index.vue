@@ -2,6 +2,7 @@
 import { getReserveDetail } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import myImage from "../../components/myImage.vue";
 // 组件参数
 const roomDetail = ref({});
 // 轮播图列表
@@ -16,11 +17,6 @@ const getRoomDetailData = async () => {
   }
 };
 getRoomDetailData();
-const previewImg = (item) => {
-  Taro.previewImage({
-    urls: ["http://localhost:8080/zufangguanli/" + item],
-  });
-};
 </script>
 <template>
   <div class="container">
@@ -37,12 +33,9 @@ const previewImg = (item) => {
         :key="index"
         class="square-swiper-item"
       >
-        <img
+        <myImage
           :src="'http://localhost:8080/zufangguanli/' + item"
-          alt=""
-          style="height: 100%; width: 100%"
-          draggable="false"
-          @click="previewImg(item)"
+          :style="{ height: '100%', width: '100%' }"
         />
       </nut-swiper-item>
     </nut-swiper>

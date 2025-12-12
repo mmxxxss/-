@@ -2,6 +2,7 @@
 import { getRentContractDetail } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import myImage from "../../components/myImage.vue";
 // 组件参数
 const roomDetail = ref({});
 // 轮播图列表
@@ -16,15 +17,7 @@ const getRoomDetailData = async () => {
   }
 };
 getRoomDetailData();
-const previewImg = (item) => {
-  Taro.previewImage({
-    urls: ["http://localhost:8080/zufangguanli/" + item],
-  });
-};
 const visible = ref(false);
-const handleError = (e) => {
-  e.target.src = "../../assets/imgError.png";
-};
 </script>
 <template>
   <div class="container">
@@ -41,12 +34,9 @@ const handleError = (e) => {
         :key="index"
         class="square-swiper-item"
       >
-        <img
+        <myImage
           :src="'http://localhost:8080/zufangguanli/' + item"
-          alt=""
-          style="height: 100%; width: 100%"
-          draggable="false"
-          @click="previewImg(item)"
+          :style="{ height: '100%', width: '100%' }"
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -145,13 +135,11 @@ const handleError = (e) => {
         </nut-form-item>
         <nut-form-item label="房屋图片">
           <div>
-            <image
-              alt="加载失败"
+            <myImage
               v-for="(item, index) in roomDetail?.fangwutupian?.split(',')"
               :key="index"
               :src="'http://localhost:8080/zufangguanli/' + item"
-              style="height: 100px; width: 100px; margin-right: 10px"
-              :onError="handleError"
+              :style="{ height: '100px', width: '100px', marginRight: '10px' }"
             />
           </div>
         </nut-form-item>
@@ -166,12 +154,12 @@ const handleError = (e) => {
         </nut-form-item>
         <nut-form-item label="户型">
           <div>
-            <image
+            <myImage
               alt=""
               v-for="(item, index) in roomDetail?.huxing?.split(',')"
               :key="index"
               :src="'http://localhost:8080/zufangguanli/' + item"
-              style="height: 100px; width: 100px; margin-right: 10px"
+              :style="{ height: '100px', width: '100px', marginRight: '10px' }"
             />
           </div>
         </nut-form-item>
