@@ -1,5 +1,9 @@
 <script setup>
-import { getRentContractDetail } from "../../api/zuke";
+import {
+  getRentContractDetail,
+  saveContract,
+  updateContract,
+} from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import myImage from "../../components/myImage.vue";
@@ -18,6 +22,24 @@ const getRoomDetailData = async () => {
 };
 getRoomDetailData();
 const visible = ref(false);
+const saveContractData = async () => {
+  delete roomDetail.value.hetongriqi;
+  const res = await saveContract(roomDetail.value);
+  if (res.code == 0) {
+    let form = {
+      ...roomDetail.value,
+      ispay: "已支付",
+    };
+    const res1 = await updateContract(form);
+    if (res1.code == 0) {
+      Taro.showToast({
+        title: "保存成功",
+        icon: "none",
+      });
+    }
+    visible.value = false;
+  }
+};
 </script>
 <template>
   <div class="container">
@@ -182,8 +204,12 @@ const visible = ref(false);
           <nut-input v-model="roomDetail.zulinjine" disabled></nut-input>
         </nut-form-item>
       </nut-form>
-      <nut-button>取消</nut-button>
-      <nut-button>保存</nut-button>
+      <div class="btn-box">
+        <nut-button type="default" @click="visible = false" class="btn"
+          >取消</nut-button
+        >
+        <nut-button type="primary" @click="saveContractData">保存</nut-button>
+      </div>
     </nut-popup>
   </div>
 </template>
@@ -258,6 +284,15 @@ const visible = ref(false);
         height: 40px;
       }
     }
+  }
+}
+.btn-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  .btn {
+    margin-right: 20px;
   }
 }
 </style>

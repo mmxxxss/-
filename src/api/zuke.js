@@ -114,3 +114,10 @@ export const getRentContractList = () => {
 export const getRentContractDetail = (id) => {
     return service(`/zulinhetong/detail/${id}`, {}, "get")
 }
+// 提交租赁合同
+export const saveContract = (data) => {
+    return service(`/fangwuzulin/save`, data, "post")
+}
+export const updateContract = (data) => {
+    return service(`/fangwuzulin/update`, data, "post")
+}
