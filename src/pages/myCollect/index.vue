@@ -20,26 +20,35 @@ getRoomListData();
 </script>
 <template>
   <div class="container">
-    <div
-      v-for="(item, index) in roomList"
-      :key="index"
-      class="item"
-      @click="openRoomDetail(item)"
-    >
-      <image
-        :src="
-          'http://localhost:8080/zufangguanli/' + item.picture.split(',')[0]
-        "
-        alt=""
-        class="img"
-      />
-      <div class="box">
-        <div class="content">房源编号：{{ item.name }}</div>
+    <div v-if="roomList.length == 0" class="none-text">暂无数据哦～</div>
+    <div v-else>
+      <div
+        v-for="(item, index) in roomList"
+        :key="index"
+        class="item"
+        @click="openRoomDetail(item)"
+      >
+        <image
+          :src="
+            'http://localhost:8080/zufangguanli/' + item.picture.split(',')[0]
+          "
+          alt=""
+          class="img"
+        />
+        <div class="box">
+          <div class="content">房源编号：{{ item.name }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss">
+.none-text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  color: #999;
+}
 .container {
   padding: 20px 0;
   background-color: #f7f7f7;
