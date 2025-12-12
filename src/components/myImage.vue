@@ -1,12 +1,5 @@
 <template>
-  <image
-    :src="localSrc"
-    alt=""
-    style="height: 100%; width: 100%"
-    draggable="false"
-    @click="previewImg(localSrc)"
-    @error="handleError"
-  />
+  <img :src="localSrc" alt="" @click="previewImg(localSrc)" />
 </template>
 <script setup>
 import imgError from "../assets/imgError.png";

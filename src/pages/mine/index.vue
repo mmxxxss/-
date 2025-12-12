@@ -17,9 +17,10 @@
       我的
     </div>
     <div class="userinfo" @click="toUserInfo">
-      <myImage
+      <img
         :src="'http://localhost:8080/zufangguanli/' + userinfo?.touxiang"
         class="avatar"
+        alt=""
       />
       <div class="username" v-if="isLogin">Hi,{{ userinfo?.zukeming }}</div>
       <div class="username" v-else>
@@ -56,7 +57,6 @@
 </template>
 
 <script setup>
-import myImage from "../../components/myImage.vue";
 import Taro from "@tarojs/taro";
 import { ref, onMounted } from "vue";
 import { keepSession } from "../../api/zuke";

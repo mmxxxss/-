@@ -32,9 +32,10 @@ getConsultationListData();
       class="item"
       @click="openConsultation(item)"
     >
-      <myImage
+      <img
         :src="'http://localhost:8080/zufangguanli/' + item.tupian.split(',')[0]"
         class="img"
+        alt=""
       />
       <div class="box">
         <div class="title">标题：{{ item.biaoti }}</div>

@@ -14,6 +14,7 @@ import publishDialog from "../../components/publishDialog.vue";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import dayjs from "dayjs";
+import myImage from "../../components/myImage.vue";
 // 组件参数
 const roomDetail = ref({});
 const userinfo = Taro.getStorageSync("userinfo");
