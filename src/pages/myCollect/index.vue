@@ -16,7 +16,9 @@ const openRoomDetail = (item) => {
     url: "/pages/roomDetail/index?id=" + item.refid,
   });
 };
-getRoomListData();
+Taro.useDidShow(() => {
+  getRoomListData();
+});
 </script>
 <template>
   <div class="container">

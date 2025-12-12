@@ -17,7 +17,7 @@
       我的
     </div>
     <div class="userinfo" @click="toUserInfo">
-      <img
+      <myImage
         :src="'http://localhost:8080/zufangguanli/' + userinfo?.touxiang"
         class="avatar"
         alt=""
@@ -60,6 +60,7 @@
 import Taro from "@tarojs/taro";
 import { ref, onMounted } from "vue";
 import { keepSession } from "../../api/zuke";
+import myImage from "../../components/myImage.vue";
 // 胶囊信息
 const menuButtonInfo = wx.getMenuButtonBoundingClientRect(); // 获取胶囊信息
 const systemInfo = wx.getSystemInfoSync(); // 获取设备信息

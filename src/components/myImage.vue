@@ -1,5 +1,5 @@
 <template>
-  <img :src="localSrc" alt="" @click="previewImg(localSrc)" />
+  <img :src="localSrc" alt="" @click="previewImg" />
 </template>
 <script setup>
 import imgError from "../assets/imgError.png";
@@ -11,9 +11,10 @@ const props = defineProps({
     default: "",
   },
 });
-const previewImg = (src) => {
+const previewImg = (event) => {
+  event.stopPropagation();
   Taro.previewImage({
-    urls: [src],
+    urls: [localSrc.value],
   });
 };
 const localSrc = ref("");
