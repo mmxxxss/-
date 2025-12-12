@@ -15,6 +15,8 @@ export default {
     'pages/yuyuekanfang/index',
     'pages/yuyuekanfangdetail/index',
     'pages/myCollect/index',
+    'pages/zulinhetong/index',
+    'pages/zulinhetongdetail/index',
   ],
   tabBar: {
     custom: true,

@@ -258,13 +258,13 @@ const previewImg = (item) => {
     <div class="content">
       <div class="content-item">
         <div class="content-item-left">
-          <div>房屋名称</div>
+          <div class="content-item-left-title">房屋名称</div>
           <div class="content-item-left-text">
             {{ roomDetail.fangwumingcheng }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>房屋面积</div>
+          <div class="content-item-right-title">房屋面积</div>
           <div class="content-item-right-text">
             {{ roomDetail.fangwumianji }}
           </div>
@@ -272,13 +272,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>发布时间</div>
+          <div class="content-item-left-title">发布时间</div>
           <div class="content-item-left-text">
             {{ roomDetail.fabushijian }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>房屋地址</div>
+          <div class="content-item-right-title">房屋地址</div>
           <div class="content-item-right-text">
             {{ roomDetail.fangwudizhi }}
           </div>
@@ -286,13 +286,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>租赁方式</div>
+          <div class="content-item-left-title">租赁方式</div>
           <div class="content-item-left-text">
             {{ roomDetail.zulinfangshi }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>租赁价格</div>
+          <div class="content-item-right-title">租赁价格</div>
           <div class="content-item-right-text">
             {{ roomDetail.zulinjiage }}
           </div>
@@ -300,13 +300,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>是否有人租赁</div>
+          <div class="content-item-left-title">是否有人租赁</div>
           <div class="content-item-left-text">
             {{ roomDetail.shifouyourenzulin }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>房东</div>
+          <div class="content-item-right-title">房东</div>
           <div class="content-item-right-text">
             {{ roomDetail.fangdong }}
           </div>
@@ -314,13 +314,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>房东姓名</div>
+          <div class="content-item-left-title">房东姓名</div>
           <div class="content-item-left-text">
             {{ roomDetail.fangdongxingming }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>手机号</div>
+          <div class="content-item-right-title">手机号</div>
           <div class="content-item-right-text">
             {{ roomDetail.shoujihao }}
           </div>
@@ -328,13 +328,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>邮箱</div>
+          <div class="content-item-left-title">邮箱</div>
           <div class="content-item-left-text">
             {{ roomDetail.youxiang }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>收藏数</div>
+          <div class="content-item-right-title">收藏数</div>
           <div class="content-item-right-text">
             {{ roomDetail.storeupNumber }}
           </div>
@@ -342,13 +342,13 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>评论数</div>
+          <div class="content-item-left-title">评论数</div>
           <div class="content-item-left-text">
             {{ roomDetail.discussNumber }}
           </div>
         </div>
         <div class="content-item-right">
-          <div>地址</div>
+          <div class="content-item-right-title">地址</div>
           <div class="content-item-right-text">
             {{ roomDetail.fulladdress }}
           </div>
@@ -356,7 +356,7 @@ const previewImg = (item) => {
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div>租赁人数</div>
+          <div class="content-item-left-title">租赁人数</div>
           <div class="content-item-left-text">
             {{ roomDetail.zulinrenshu }}
           </div>
@@ -556,7 +556,7 @@ const previewImg = (item) => {
 .content {
   margin: 20px 0;
   display: flex;
-  padding: 20px 20px 0 20px;
+  padding: 0 20px;
   flex-direction: column;
   background-color: white;
 
@@ -565,17 +565,26 @@ const previewImg = (item) => {
     align-items: center;
     padding: 10px 0;
     width: 100%;
+    height: 80px;
     border-bottom: 1px solid #f0efef;
     &-left {
       width: 350px;
+      &-title {
+        height: 40px;
+      }
       &-text {
+        height: 40px;
         font-size: 28px;
         color: #8a8a8a;
       }
     }
     &-right {
       margin-left: 20px;
+      &-title {
+        height: 40px;
+      }
       &-text {
+        height: 40px;
         font-size: 28px;
         color: #8a8a8a;
       }

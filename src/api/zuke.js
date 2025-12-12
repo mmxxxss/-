@@ -106,3 +106,11 @@ export const getReserveDetail = (id) => {
 export const getMyCollectList = () => {
     return service(`/storeup/page?page=1&limit=20&sort=id&order=desc&type=1`, {}, "get")
 }
+// 获取租赁合同数据
+export const getRentContractList = () => {
+    return service(`/zulinhetong/page?page=1&limit=20`, {}, "get")
+}
+// 获取租赁合同详情
+export const getRentContractDetail = (id) => {
+    return service(`/zulinhetong/detail/${id}`, {}, "get")
+}

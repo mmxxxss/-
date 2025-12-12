@@ -1,15 +1,15 @@
 <script setup>
-import { getReserveDetail } from "../../api/zuke";
+import { getRentContractDetail } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 // 组件参数
 const roomDetail = ref({});
 // 轮播图列表
 const swiperList = ref([]);
-// 获取房源详情
+// 获取租赁合同详情
 const getRoomDetailData = async () => {
   let id = Taro.getCurrentInstance().router?.params?.id;
-  const res = await getReserveDetail(id);
+  const res = await getRentContractDetail(id);
   if (res.code == 0) {
     roomDetail.value = res.data;
     swiperList.value = res.data.fangwutupian.split(",");
@@ -100,9 +100,9 @@ const previewImg = (item) => {
           </div>
         </div>
         <div class="content-item-right">
-          <div class="content-item-right-title">预约时间</div>
+          <div class="content-item-right-title">租赁/月</div>
           <div class="content-item-right-text">
-            {{ roomDetail.yuyueshijian }}
+            {{ roomDetail.zulinshijian }}
           </div>
         </div>
       </div>
@@ -114,17 +114,17 @@ const previewImg = (item) => {
           </div>
         </div>
         <div class="content-item-right">
-          <div class="content-item-right-title">是否审核</div>
+          <div class="content-item-right-title">租赁金额</div>
           <div class="content-item-right-text">
-            {{ roomDetail.sfsh }}
+            {{ roomDetail.zulinjine }}
           </div>
         </div>
       </div>
       <div class="content-item">
         <div class="content-item-left">
-          <div class="content-item-left-title">回复内容</div>
+          <div class="content-item-left-title">合同日期</div>
           <div class="content-item-left-text">
-            {{ roomDetail.sfhf }}
+            {{ roomDetail.hetongriqi }}
           </div>
         </div>
       </div>
@@ -197,9 +197,9 @@ const previewImg = (item) => {
         height: 40px;
       }
       &-text {
-        height: 40px;
         font-size: 28px;
         color: #8a8a8a;
+        height: 40px;
       }
     }
   }

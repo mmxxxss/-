@@ -37,11 +37,11 @@
         <image src="../../assets/yuyuekanfnag.png" alt="" class="icon" />
         <span class="text">预约看房</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toZulinHetong">
         <image src="../../assets/zulinhetong.png" alt="" class="icon" />
         <span class="text">租赁合同</span>
       </div>
-      <div class="item">
+      <div class="item" @click="toFangWuZulin">
         <image src="../../assets/fangwuzulin.png" alt="" class="icon" />
         <span class="text">房屋租赁</span>
       </div>
@@ -99,6 +99,16 @@ const toYuYueKanFang = () => {
 const toMyCollect = () => {
   Taro.navigateTo({
     url: "/pages/myCollect/index",
+  });
+};
+const toZulinHetong = () => {
+  Taro.navigateTo({
+    url: "/pages/zulinhetong/index",
+  });
+};
+const toFangWuZulin = () => {
+  Taro.navigateTo({
+    url: "/pages/fangwuzulin/index",
   });
 };
 // 页面加载时获取用户信息
