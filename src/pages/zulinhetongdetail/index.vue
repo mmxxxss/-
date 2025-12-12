@@ -21,6 +21,10 @@ const previewImg = (item) => {
     urls: ["http://localhost:8080/zufangguanli/" + item],
   });
 };
+const visible = ref(false);
+const handleError = (e) => {
+  e.target.src = "../../assets/imgError.png";
+};
 </script>
 <template>
   <div class="container">
@@ -129,6 +133,73 @@ const previewImg = (item) => {
         </div>
       </div>
     </div>
+    <nut-button type="primary" @click="visible = true">租赁</nut-button>
+    <nut-popup
+      v-model:visible="visible"
+      :style="{ height: '600px' }"
+      position="bottom"
+    >
+      <nut-form :model="roomDetail">
+        <nut-form-item label="房屋名称">
+          <nut-input v-model="roomDetail.fangwumingcheng" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="房屋图片">
+          <div>
+            <image
+              alt="加载失败"
+              v-for="(item, index) in roomDetail?.fangwutupian?.split(',')"
+              :key="index"
+              :src="'http://localhost:8080/zufangguanli/' + item"
+              style="height: 100px; width: 100px; margin-right: 10px"
+              :onError="handleError"
+            />
+          </div>
+        </nut-form-item>
+        <nut-form-item label="房屋面积/m3">
+          <nut-input v-model="roomDetail.fangwumianji" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="房屋地址">
+          <nut-input v-model="roomDetail.fangwudizhi" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁价格">
+          <nut-input v-model="roomDetail.zulinjiage" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="户型">
+          <div>
+            <image
+              alt=""
+              v-for="(item, index) in roomDetail?.huxing?.split(',')"
+              :key="index"
+              :src="'http://localhost:8080/zufangguanli/' + item"
+              style="height: 100px; width: 100px; margin-right: 10px"
+            />
+          </div>
+        </nut-form-item>
+        <nut-form-item label="房东">
+          <nut-input v-model="roomDetail.fangdong" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="房东姓名">
+          <nut-input v-model="roomDetail.fangdongxingming" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租客名">
+          <nut-input v-model="roomDetail.zukeming" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="姓名">
+          <nut-input v-model="roomDetail.xingming" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁/月">
+          <nut-input v-model="roomDetail.zulinshijian" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁人数">
+          <nut-input v-model="roomDetail.zulinrenshu" disabled></nut-input>
+        </nut-form-item>
+        <nut-form-item label="租赁金额">
+          <nut-input v-model="roomDetail.zulinjine" disabled></nut-input>
+        </nut-form-item>
+      </nut-form>
+      <nut-button>取消</nut-button>
+      <nut-button>保存</nut-button>
+    </nut-popup>
   </div>
 </template>
 <style lang="scss">
