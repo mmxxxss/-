@@ -34,10 +34,7 @@ const visible = ref(false);
         :key="index"
         class="square-swiper-item"
       >
-        <myImage
-          :src="'http://localhost:8080/zufangguanli/' + item"
-          :style="{ height: '100%', width: '100%' }"
-        />
+        <myImage :src="item" :style="{ height: '100%', width: '100%' }" />
       </nut-swiper-item>
     </nut-swiper>
     <div class="top">
@@ -138,7 +135,7 @@ const visible = ref(false);
             <myImage
               v-for="(item, index) in roomDetail?.fangwutupian?.split(',')"
               :key="index"
-              :src="'http://localhost:8080/zufangguanli/' + item"
+              :src="item"
               :style="{ height: '100px', width: '100px', marginRight: '10px' }"
             />
           </div>
@@ -158,7 +155,7 @@ const visible = ref(false);
               alt=""
               v-for="(item, index) in roomDetail?.huxing?.split(',')"
               :key="index"
-              :src="'http://localhost:8080/zufangguanli/' + item"
+              :src="item"
               :style="{ height: '100px', width: '100px', marginRight: '10px' }"
             />
           </div>

@@ -215,6 +215,11 @@ const confirm = ({ selectedValue }) => {
   }
   reserveForm.value.yuyueshijian = dayjs(time).format("YYYY-MM-DD hh:mm:ss");
 };
+const previewImg = (src) => {
+  Taro.previewImage({
+    urls: [src],
+  });
+};
 </script>
 <template>
   <div class="container">
@@ -231,9 +236,10 @@ const confirm = ({ selectedValue }) => {
         :key="index"
         class="square-swiper-item"
       >
-        <myImage
+        <img
           :src="'http://localhost:8080/zufangguanli/' + item"
           style="height: 100%; width: 100%"
+          @click="previewImg(item)"
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -366,10 +372,7 @@ const confirm = ({ selectedValue }) => {
         :key="index"
         class="comment-item"
       >
-        <myImage
-          :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-          class="comment-item-avatar"
-        />
+        <myImage :src="item.avatarurl" class="comment-item-avatar" />
         <div class="comment-item-right">
           <div class="comment-item-right-nickname">
             {{ item.nickname || "匿名用户" }}
@@ -397,10 +400,7 @@ const confirm = ({ selectedValue }) => {
             :key="index"
             class="comment-item"
           >
-            <myImage
-              :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-              class="comment-item-avatar"
-            />
+            <myImage :src="item.avatarurl" class="comment-item-avatar" />
             <div class="comment-item-right">
               <div class="comment-item-right-nickname">
                 {{ item.nickname || "匿名用户" }}
@@ -435,7 +435,7 @@ const confirm = ({ selectedValue }) => {
           <myImage
             v-for="(item, index) in roomDetail.fangwutupian?.split(',') || []"
             :key="index"
-            :src="'http://localhost:8080/zufangguanli/' + item"
+            :src="item"
             class="reverse-img"
           />
         </nut-form-item>
@@ -452,7 +452,7 @@ const confirm = ({ selectedValue }) => {
           <myImage
             v-for="(item, index) in roomDetail.huxing?.split(',') || []"
             :key="index"
-            :src="'http://localhost:8080/zufangguanli/' + item"
+            :src="item"
             class="reverse-img"
           />
         </nut-form-item>

@@ -3,7 +3,6 @@ import { getConsultationDetail } from "../../api/zuke";
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
 import dayjs from "dayjs";
-import myImage from "../../components/myImage.vue";
 // 组件参数
 const consultationDetail = ref({});
 const swiperList = ref([]);
@@ -16,7 +15,11 @@ const getConsultationDetailData = async () => {
     swiperList.value = consultationDetail.value.tupian.split(",");
   }
 };
-
+const previewImg = (src) => {
+  Taro.previewImage({
+    urls: [src],
+  });
+};
 getConsultationDetailData();
 </script>
 
@@ -35,9 +38,11 @@ getConsultationDetailData();
         :key="index"
         class="square-swiper-item"
       >
-        <myImage
+        <img
           :src="'http://localhost:8080/zufangguanli/' + item"
           style="height: 100%; width: 100%"
+          draggable="false"
+          @click="previewImg('http://localhost:8080/zufangguanli/' + item)"
         />
       </nut-swiper-item>
     </nut-swiper>

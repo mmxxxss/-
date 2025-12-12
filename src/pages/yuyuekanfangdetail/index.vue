@@ -33,10 +33,7 @@ getRoomDetailData();
         :key="index"
         class="square-swiper-item"
       >
-        <myImage
-          :src="'http://localhost:8080/zufangguanli/' + item"
-          :style="{ height: '100%', width: '100%' }"
-        />
+        <myImage :src="item" :style="{ height: '100%', width: '100%' }" />
       </nut-swiper-item>
     </nut-swiper>
     <div class="top">

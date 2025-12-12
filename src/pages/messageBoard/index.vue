@@ -50,10 +50,7 @@ const sendCommentFn = async (val) => {
       >发表</nut-button
     >
     <div v-for="(item, index) in messageList" :key="index" class="item">
-      <myImage
-        :src="'http://localhost:8080/zufangguanli/' + item.avatarurl"
-        class="avatar"
-      />
+      <myImage :src="item.avatarurl" class="avatar" />
       <div class="content-container">
         <div class="username">{{ item.username }}</div>
         <div class="content">{{ item.content }}</div>

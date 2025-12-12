@@ -6,10 +6,7 @@
       <div class="time">
         发布时间：{{ dayjs(props.param.addTime).format("YYYY-MM-DD") }}
       </div>
-      <myImage
-        :src="'http://localhost:8080/zufangguanli/' + props.param.picture"
-        class="image"
-      />
+      <myImage :src="props.param.picture" class="image" />
       <div class="content">{{ props.param.content }}</div>
     </div>
     <nut-button type="default" @click="onOk" class="close-btn">关闭</nut-button>

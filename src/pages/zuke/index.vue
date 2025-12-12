@@ -28,9 +28,13 @@
         :key="index"
         style="height: 150px"
       >
-        <myImage
+        <img
           :src="'http://localhost:8080/zufangguanli/' + item.value"
           class="swiper-img"
+          draggable="false"
+          @click="
+            previewImg('http://localhost:8080/zufangguanli/' + item.value)
+          "
         />
       </nut-swiper-item>
     </nut-swiper>
@@ -105,12 +109,7 @@
         <span class="c-t-more">查看更多+</span>
       </div>
       <div class="f-content">
-        <img
-          :src="'http://localhost:8080/zufangguanli/' + developList.picture1"
-          alt=""
-          class="f-c-img"
-          draggable="false"
-        />
+        <myImage :src="developList.picture1" class="f-c-img" />
         <div class="f-c-text">
           {{ developList.content }}
         </div>
@@ -122,12 +121,7 @@
         <span class="c-t-more">查看更多+</span>
       </div>
       <div class="f-content">
-        <img
-          :src="'http://localhost:8080/zufangguanli/' + websiteInfo.picture1"
-          alt=""
-          class="f-c-img"
-          draggable="false"
-        />
+        <myImage :src="websiteInfo.picture1" class="f-c-img" />
         <div class="f-c-text">
           {{ websiteInfo.content }}
         </div>
@@ -231,6 +225,11 @@ const toRoomDetail = (id) => {
 const toMessageBoard = () => {
   Taro.navigateTo({
     url: "/pages/messageBoard/index",
+  });
+};
+const previewImg = (src) => {
+  Taro.previewImage({
+    urls: [src],
   });
 };
 </script>
