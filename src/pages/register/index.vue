@@ -36,8 +36,8 @@
       </nut-form-item>
       <nut-form-item label="性别" prop="xingbie">
         <nut-radio-group v-model="form.xingbie" direction="horizontal">
-          <nut-radio label="man">男</nut-radio>
-          <nut-radio label="women">女</nut-radio>
+          <nut-radio label="男">男</nut-radio>
+          <nut-radio label="女">女</nut-radio>
         </nut-radio-group>
       </nut-form-item>
       <nut-form-item label="头像" prop="touxiang">
@@ -87,7 +87,7 @@ const form = ref({
   zukeming: "",
   mima: "",
   mima2: "",
-  xingbie: "man",
+  xingbie: "男",
   xingming: "",
   touxiang: "",
   nianling: "",
@@ -122,9 +122,11 @@ const register = async () => {
           title: "注册成功",
           icon: "none",
         });
-        Taro.navigateTo({
-          url: "/pages/login/index",
-        });
+        setTimeout(() => {
+          Taro.navigateTo({
+            url: "/pages/login/index",
+          });
+        }, 1000);
       } else {
         Taro.showToast({
           title: res.msg,
