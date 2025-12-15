@@ -116,6 +116,7 @@ const customBlurValidate = (prop) => {
 const register = async () => {
   formRef.value?.validate().then(async ({ valid, errors }) => {
     if (valid) {
+      form.value.touxiang = "file/" + form.value.touxiang;
       const res = await goZuKeRegister(form.value);
       if (res.code == 0) {
         Taro.showToast({

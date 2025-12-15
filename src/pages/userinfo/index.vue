@@ -67,6 +67,7 @@ const handleSuccess = (res) => {
   userinfo.value.touxiang = data.file;
 };
 const save = async () => {
+  userinfo.value.touxiang = "file/" + userinfo.value.touxiang;
   await updateZuKeInfo(userinfo.value);
   Taro.showToast({
     title: "保存成功",
