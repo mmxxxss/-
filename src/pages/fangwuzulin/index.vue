@@ -13,7 +13,7 @@ const getRoomListData = async () => {
 };
 const openFangWuzuliDetail = (item) => {
   Taro.navigateTo({
-    url: "/pages/fangwuzulindetail/index?id=" + item.id,
+    url: "/pages/fangwuzulinDetail/index?id=" + item.id,
   });
 };
 getRoomListData();

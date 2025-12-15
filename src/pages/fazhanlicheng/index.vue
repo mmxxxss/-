@@ -1,8 +1,6 @@
 <script setup>
 import { getDevelopList } from "../../api/zuke";
 import { ref } from "vue";
-import Taro from "@tarojs/taro";
-import dayjs from "dayjs";
 import myImage from "../../components/myImage.vue";
 // 组件参数
 const developList = ref({});

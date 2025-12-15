@@ -24,7 +24,10 @@ getRoomDetailData();
 const visible = ref(false);
 const saveContractData = async () => {
   delete roomDetail.value.hetongriqi;
-  const res = await saveContract(roomDetail.value);
+  let contractForm = JSON.parse(JSON.stringify(roomDetail.value));
+  delete contractForm.addtime;
+  delete contractForm.id;
+  const res = await saveContract(contractForm);
   if (res.code == 0) {
     let form = {
       ...roomDetail.value,
