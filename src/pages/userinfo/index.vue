@@ -49,8 +49,7 @@ const getUserInfo = async () => {
     userinfo.value = res.data;
     defaultFileList.value = [
       {
-        url:
-          "http://localhost:8080/zufangguanli/file/" + userinfo.value.touxiang,
+        url: "http://localhost:8080/zufangguanli/" + userinfo.value.touxiang,
         name: userinfo.value.touxiang,
         status: "success",
         message: "上传成功",

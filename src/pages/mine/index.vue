@@ -17,7 +17,7 @@
       我的
     </div>
     <div class="userinfo" @click="toUserInfo">
-      <myImage :src="'file/' + userinfo?.touxiang" class="avatar" alt="" />
+      <myImage :src="userinfo?.touxiang" class="avatar" alt="" />
       <div class="username" v-if="isLogin">Hi,{{ userinfo?.zukeming }}</div>
       <div class="username" v-else>
         Hi,请先<span class="login" @click="toLogin">登录</span>
