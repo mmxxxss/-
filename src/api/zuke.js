@@ -23,16 +23,16 @@ export const getHouseList = (data) => {
     return service(`/fangyuanxinxi/autoSort${token ? 2 : ''}`, data, "get")
 }
 // 获取发展历程
-export const getDevelopList = (data) => {
-    return service(`/aboutus/detail/1`, data, "get")
+export const getDevelopList = () => {
+    return service(`/aboutus/detail/1`, {}, "get")
 }
 // 获取通知公告
 export const getNoticeList = (data) => {
     return service(`/news/list`, data, "get")
 }
 // 获取网站介绍
-export const getWebsiteInfo = (data) => {
-    return service(`/systemintro/detail/1`, data, "get")
+export const getWebsiteInfo = () => {
+    return service(`/systemintro/detail/1`, {}, "get")
 }
 // 获取房屋咨询列表
 export const getConsultationList = (data) => {

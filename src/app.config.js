@@ -19,6 +19,8 @@ export default {
     'pages/zulinhetongdetail/index',
     'pages/fangwuzulin/index',
     'pages/fangwuzulinDetail/index',
+    'pages/fazhanlicheng/index',
+    'pages/xiangguanjieshao/index',
   ],
   tabBar: {
     custom: true,

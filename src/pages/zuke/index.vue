@@ -99,7 +99,7 @@
     <div class="common">
       <div class="c-top">
         <span class="c-t-title">发展历程</span>
-        <span class="c-t-more">查看更多+</span>
+        <span class="c-t-more" @click="toFazhanlicheng">查看更多+</span>
       </div>
       <div class="f-content">
         <myImage :src="developList.picture1" class="f-c-img" />
@@ -111,7 +111,7 @@
     <div class="common">
       <div class="c-top">
         <span class="c-t-title">相关介绍</span>
-        <span class="c-t-more">查看更多+</span>
+        <span class="c-t-more" @click="toXiangguanjieshao">查看更多+</span>
       </div>
       <div class="f-content">
         <myImage :src="websiteInfo.picture1" class="f-c-img" />
@@ -218,6 +218,16 @@ const toRoomDetail = (id) => {
 const toMessageBoard = () => {
   Taro.navigateTo({
     url: "/pages/messageBoard/index",
+  });
+};
+const toFazhanlicheng = () => {
+  Taro.navigateTo({
+    url: "/pages/fazhanlicheng/index",
+  });
+};
+const toXiangguanjieshao = () => {
+  Taro.navigateTo({
+    url: "/pages/xiangguanjieshao/index",
   });
 };
 </script>
