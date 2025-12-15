@@ -142,7 +142,9 @@ const saveContractData = async () => {
         </div>
       </div>
     </div>
-    <nut-button type="primary" @click="visible = true">租赁</nut-button>
+    <nut-button type="primary" @click="visible = true" class="rent-btn"
+      >租赁</nut-button
+    >
     <nut-popup
       v-model:visible="visible"
       :style="{ height: '600px' }"
@@ -285,6 +287,11 @@ const saveContractData = async () => {
       }
     }
   }
+}
+.rent-btn {
+  display: block;
+  margin: 0 20px 0 auto;
+  width: 180px;
 }
 .btn-box {
   display: flex;
