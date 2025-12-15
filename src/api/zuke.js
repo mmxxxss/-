@@ -121,3 +121,12 @@ export const saveContract = (data) => {
 export const updateContract = (data) => {
     return service(`/fangwuzulin/update`, data, "post")
 }
+// 房屋租赁
+export const getRentHouseList = () => {
+    return service(`/fangwuzulin/page?page=1&limit=20`, {}, "get")
+}
+
+// 获取房屋租赁详情
+export const getRentHouseDetail = (id) => {
+    return service(`/fangwuzulin/detail/${id}`, {}, "get")
+}

@@ -17,6 +17,8 @@ export default {
     'pages/myCollect/index',
     'pages/zulinhetong/index',
     'pages/zulinhetongdetail/index',
+    'pages/fangwuzulin/index',
+    'pages/fangwuzulinDetail/index',
   ],
   tabBar: {
     custom: true,
