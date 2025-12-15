@@ -114,7 +114,7 @@ getRoomDetailData();
         <div class="content-item-left">
           <div class="content-item-left-title">回复内容</div>
           <div class="content-item-left-text">
-            {{ roomDetail.sfhf }}
+            {{ roomDetail.shhf }}
           </div>
         </div>
       </div>
