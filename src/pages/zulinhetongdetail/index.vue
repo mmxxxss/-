@@ -32,6 +32,7 @@ const saveContractData = async () => {
     let form = {
       ...roomDetail.value,
       ispay: "已支付",
+      isUsed: "是",
     };
     const res1 = await updateContract(form);
     if (res1.code == 0) {
@@ -39,6 +40,7 @@ const saveContractData = async () => {
         title: "保存成功",
         icon: "none",
       });
+      getRoomDetailData();
     }
     visible.value = false;
   }
@@ -145,8 +147,15 @@ const saveContractData = async () => {
         </div>
       </div>
     </div>
-    <nut-button type="primary" @click="visible = true" class="rent-btn"
+    <nut-button
+      type="primary"
+      @click="visible = true"
+      class="rent-btn"
+      v-if="roomDetail.isUsed == '否'"
       >租赁</nut-button
+    >
+    <nut-button type="primary" disabled class="rent-btn" v-else
+      >已租赁</nut-button
     >
     <nut-popup
       v-model:visible="visible"
